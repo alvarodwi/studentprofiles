@@ -11,7 +11,6 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.dynamic-feature")
                 apply("org.jetbrains.kotlin.android")
-                apply("studentprofiles.android.hilt")
             }
 
             extensions.configure<DynamicFeatureExtension> {

@@ -6,6 +6,16 @@ plugins {
 
 android {
     namespace = "me.varoa.studentprofiles.core"
+
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                compilerArgumentProviders(
+                    RoomSchemaArgProvider(File(project.rootDir, "schemas"))
+                )
+            }
+        }
+    }
 }
 
 dependencies {
@@ -20,7 +30,6 @@ dependencies {
     implementation(libs.bundles.networking)
 
     // other
-    implementation(libs.jsoup)
     api(libs.androidx.work)
     api(libs.androidx.paging)
     api(libs.coil)
@@ -29,4 +38,17 @@ dependencies {
     // unit test
     api(libs.espresso.idlingResource)
     testImplementation(libs.bundles.unitTest)
+}
+
+class RoomSchemaArgProvider(
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    val schemaDir: File
+) : CommandLineArgumentProvider {
+
+    override fun asArguments(): Iterable<String> {
+        // Note: If you're using KSP, change the line below to return
+        // listOf("room.schemaLocation=${schemaDir.path}").
+        return listOf("-Aroom.schemaLocation=${schemaDir.path}")
+    }
 }

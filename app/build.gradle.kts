@@ -28,7 +28,6 @@ android {
         }
     }
     buildFeatures.viewBinding = true
-    dynamicFeatures += setOf(":feature:favorite")
 }
 
 dependencies {

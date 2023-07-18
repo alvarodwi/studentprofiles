@@ -1,4 +1,4 @@
 <resources>
-  <string name="app_name">StudentProfiles</string>
-  <string name="title_favorite">Favorite</string>
+    <string name="app_name">StudentProfiles</string>
+    <string name="title_favorite">Favorite</string>
 </resources>

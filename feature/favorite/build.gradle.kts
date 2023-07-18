@@ -1,5 +1,6 @@
 plugins {
     id("studentprofiles.android.feature")
+    id("studentprofiles.android.hilt")
 }
 
 android {
@@ -8,6 +9,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":app"))
     testImplementation(libs.bundles.unitTest)
 }

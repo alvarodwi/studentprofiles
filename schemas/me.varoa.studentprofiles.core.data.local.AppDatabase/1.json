@@ -1,0 +1,172 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "f64bc2c505e4e689d4099561b86f1f37",
+    "entities": [
+      {
+        "tableName": "students",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`devName` TEXT NOT NULL, `releasedInGlobal` INTEGER NOT NULL, `name` TEXT NOT NULL, `squadType` TEXT NOT NULL, `tacticRole` TEXT NOT NULL, `attackType` TEXT NOT NULL, `defenseType` TEXT NOT NULL, `weaponType` TEXT NOT NULL, `position` TEXT NOT NULL, `school` TEXT NOT NULL, `fullName` TEXT NOT NULL, `club` TEXT NOT NULL, `schoolYear` TEXT NOT NULL, `basicInfo` TEXT NOT NULL, `age` TEXT NOT NULL, `birthday` TEXT NOT NULL, `height` TEXT NOT NULL, `hobbies` TEXT NOT NULL, `designer` TEXT NOT NULL, `illustrator` TEXT NOT NULL, `cv` TEXT NOT NULL, `bgImgPath` TEXT NOT NULL, `weaponImgPath` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, PRIMARY KEY(`devName`))",
+        "fields": [
+          {
+            "fieldPath": "devName",
+            "columnName": "devName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "releasedInGlobal",
+            "columnName": "releasedInGlobal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "squadType",
+            "columnName": "squadType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tacticRole",
+            "columnName": "tacticRole",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attackType",
+            "columnName": "attackType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "defenseType",
+            "columnName": "defenseType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weaponType",
+            "columnName": "weaponType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "school",
+            "columnName": "school",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fullName",
+            "columnName": "fullName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "club",
+            "columnName": "club",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "schoolYear",
+            "columnName": "schoolYear",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "basicInfo",
+            "columnName": "basicInfo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "age",
+            "columnName": "age",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "birthday",
+            "columnName": "birthday",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hobbies",
+            "columnName": "hobbies",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "designer",
+            "columnName": "designer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "illustrator",
+            "columnName": "illustrator",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cv",
+            "columnName": "cv",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bgImgPath",
+            "columnName": "bgImgPath",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weaponImgPath",
+            "columnName": "weaponImgPath",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFavorite",
+            "columnName": "isFavorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "devName"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f64bc2c505e4e689d4099561b86f1f37')"
+    ]
+  }
+}
