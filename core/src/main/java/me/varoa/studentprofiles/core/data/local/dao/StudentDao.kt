@@ -16,8 +16,8 @@ interface StudentDao {
     @RawQuery(observedEntities = [StudentEntity::class])
     fun getAll(query: SupportSQLiteQuery): PagingSource<Int, StudentMinified>
 
-    @Query("select * from students where devName = :devName")
-    fun getStudent(devName: String): Flow<StudentEntity>
+    @Query("select * from students where id = :id")
+    fun getStudent(id: Int): Flow<StudentEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg students: StudentEntity)

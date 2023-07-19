@@ -12,6 +12,7 @@ data class StudentProfile(
     val designer: String,
     val illustrator: String,
     val cv: String,
+    val devName: String,
     val bgImgPath: String,
     val weaponImgPath: String,
 )

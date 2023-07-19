@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class StudentJson(
+    @SerialName("DefaultOrder") val id: Int,
     @SerialName("IsReleased") val isReleased: List<Boolean>,
     @SerialName("Name") val name: String,
     @SerialName("SquadType") val squadType: String,
@@ -29,6 +30,7 @@ data class StudentJson(
     @SerialName("CharacterVoice") val cv: String,
     // img
     @SerialName("DevName") val devName: String,
+    @SerialName("CollectionTexture") val imgPath: String,
     @SerialName("CollectionBG") val bgImgPath: String,
     @SerialName("WeaponImg") val weaponImgPath: String,
-    )
+)

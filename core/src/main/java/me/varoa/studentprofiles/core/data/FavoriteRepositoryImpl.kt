@@ -11,15 +11,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FavoriteRepositoryImpl @Inject constructor(
-    private val dao: FavoriteDao
-) : FavoriteRepository {
-    override fun getFavorites(): Flow<PagingData<StudentMinified>> =
-        Pager(PagingConfig(pageSize = 20)) {
-            dao.getFavorites()
-        }.flow
+class FavoriteRepositoryImpl
+    @Inject
+    constructor(
+        private val dao: FavoriteDao,
+    ) : FavoriteRepository {
+        override fun getFavorites(): Flow<PagingData<StudentMinified>> =
+            Pager(PagingConfig(pageSize = 20)) {
+                dao.getFavorites()
+            }.flow
 
-    override suspend fun addToFavorite(devName: String) = dao.updateFavorite(devName, true)
+        override suspend fun addToFavorite(id: Int) = dao.updateFavorite(id, true)
 
-    override suspend fun removeFromFavorite(devName: String) = dao.updateFavorite(devName, false)
-}
+        override suspend fun removeFromFavorite(id: Int) = dao.updateFavorite(id, false)
+    }

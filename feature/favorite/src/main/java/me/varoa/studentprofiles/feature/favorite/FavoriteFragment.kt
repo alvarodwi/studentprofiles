@@ -1,9 +1,7 @@
 package me.varoa.studentprofiles.feature.favorite
 
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
-import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import logcat.logcat
@@ -18,24 +16,25 @@ class FavoriteFragment : BaseFragment(R.layout.fragment_favorite) {
     override val viewModel by viewModels<FavoriteViewModel>()
 
     override fun setupUiEvent() {
-        eventJob = viewModel.events
-            .onEach { event ->
-                when (event) {
-                    is UiEvent.Loading -> {
-                        toggleLoading(true)
-                    }
+        eventJob =
+            viewModel.events
+                .onEach { event ->
+                    when (event) {
+                        is UiEvent.Loading -> {
+                            toggleLoading(true)
+                        }
 
-                    is UiEvent.NotLoading -> {
-                        toggleLoading(false)
-                    }
+                        is UiEvent.NotLoading -> {
+                            toggleLoading(false)
+                        }
 
-                    is UiEvent.Error -> {
-                        toggleLoading(false)
-                        logcat { "Error : ${event.throwable?.message}" }
-                        snackbar("Error : ${event.throwable?.message}")
+                        is UiEvent.Error -> {
+                            toggleLoading(false)
+                            logcat { "Error : ${event.throwable?.message}" }
+                            snackbar("Error : ${event.throwable?.message}")
+                        }
                     }
-                }
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+                }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun bindView() {
@@ -43,6 +42,5 @@ class FavoriteFragment : BaseFragment(R.layout.fragment_favorite) {
     }
 
     override fun toggleLoading(isLoading: Boolean) {
-
     }
 }

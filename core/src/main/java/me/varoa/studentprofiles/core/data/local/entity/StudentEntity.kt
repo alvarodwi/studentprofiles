@@ -2,11 +2,10 @@ package me.varoa.studentprofiles.core.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.serialization.SerialName
 
 @Entity("students")
 data class StudentEntity(
-    @PrimaryKey val devName: String,
+    @PrimaryKey val id: Int,
     val releasedInGlobal: Boolean,
     val name: String,
     val squadType: String,
@@ -16,6 +15,7 @@ data class StudentEntity(
     val weaponType: String,
     val position: String,
     val school: String,
+    val imgPath: String,
     // profile
     val fullName: String,
     val club: String,
@@ -29,8 +29,9 @@ data class StudentEntity(
     val illustrator: String,
     val cv: String,
     // img
+    val devName: String,
     val bgImgPath: String,
     val weaponImgPath: String,
     // feature
-    val isFavorite: Boolean = false
+    val isFavorite: Boolean = false,
 )

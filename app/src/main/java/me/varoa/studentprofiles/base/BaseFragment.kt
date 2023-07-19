@@ -15,7 +15,9 @@ import kotlinx.coroutines.Job
 import javax.inject.Inject
 
 @AndroidEntryPoint
-abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
+abstract class BaseFragment(
+    @LayoutRes layoutId: Int,
+) : Fragment(layoutId) {
     @Inject protected lateinit var imageLoader: ImageLoader
     protected lateinit var eventJob: Job
 
@@ -29,7 +31,10 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         setupUiEvent()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         bindView()
     }
@@ -49,7 +54,10 @@ abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
         findNavController().navigate(directions)
     }
 
-    protected fun navigateTo(directions: NavDirections, extras: Navigator.Extras) {
+    protected fun navigateTo(
+        directions: NavDirections,
+        extras: Navigator.Extras,
+    ) {
         findNavController().navigate(directions, extras)
     }
 }

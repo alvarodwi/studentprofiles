@@ -18,7 +18,7 @@ data class FilterKey(
     val position: StudentPosition? = null,
     val school: School? = null,
 ) {
-    private val baseQuery = " AND releasedInGlobal = ${if(isGlobalServer) 1 else 0}"
+    private val baseQuery = " AND releasedInGlobal = ${if (isGlobalServer) 1 else 0}"
 
     private fun StringBuilder.generateFilterQuery() {
         squadType?.let {
@@ -51,4 +51,3 @@ data class FilterKey(
         }.toString()
     }
 }
-

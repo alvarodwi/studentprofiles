@@ -16,12 +16,12 @@ class FragmentViewBindingDelegate<T : ViewBinding> private constructor(
     viewBindingBind: ((View) -> T)? = null,
     viewBindingClazz: Class<T>? = null,
 ) : ReadOnlyProperty<Fragment, T> {
-
     private var binding: T? = null
-    private val bind = viewBindingBind ?: { view: View ->
-        @Suppress("UNCHECKED_CAST")
-        GetBindMethod(viewBindingClazz!!)(null, view) as T
-    }
+    private val bind =
+        viewBindingBind ?: { view: View ->
+            @Suppress("UNCHECKED_CAST")
+            GetBindMethod(viewBindingClazz!!)(null, view) as T
+        }
 
     init {
         ensureMainThread()
@@ -32,7 +32,10 @@ class FragmentViewBindingDelegate<T : ViewBinding> private constructor(
         fragment.lifecycle.addObserver(FragmentLifecycleObserver())
     }
 
-    override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
+    override fun getValue(
+        thisRef: Fragment,
+        property: KProperty<*>,
+    ): T {
         binding?.let { return it }
 
         check(
@@ -52,14 +55,15 @@ class FragmentViewBindingDelegate<T : ViewBinding> private constructor(
                 .observe(fragment) { viewLifecycleOwner: LifecycleOwner? ->
                     viewLifecycleOwner ?: return@observe
 
-                    val viewLifecycleObserver = object : DefaultLifecycleObserver {
-                        override fun onDestroy(owner: LifecycleOwner) {
-                            viewLifecycleOwner.lifecycle.removeObserver(this)
-                            MainHandler.post {
-                                binding = null
+                    val viewLifecycleObserver =
+                        object : DefaultLifecycleObserver {
+                            override fun onDestroy(owner: LifecycleOwner) {
+                                viewLifecycleOwner.lifecycle.removeObserver(this)
+                                MainHandler.post {
+                                    binding = null
+                                }
                             }
                         }
-                    }
 
                     viewLifecycleOwner.lifecycle.addObserver(viewLifecycleObserver)
                 }
@@ -75,17 +79,19 @@ class FragmentViewBindingDelegate<T : ViewBinding> private constructor(
         fun <T : ViewBinding> from(
             fragment: Fragment,
             viewBindingBind: (View) -> T,
-        ): FragmentViewBindingDelegate<T> = FragmentViewBindingDelegate(
-            fragment = fragment,
-            viewBindingBind = viewBindingBind,
-        )
+        ): FragmentViewBindingDelegate<T> =
+            FragmentViewBindingDelegate(
+                fragment = fragment,
+                viewBindingBind = viewBindingBind,
+            )
 
         fun <T : ViewBinding> from(
             fragment: Fragment,
             viewBindingClazz: Class<T>,
-        ): FragmentViewBindingDelegate<T> = FragmentViewBindingDelegate(
-            fragment = fragment,
-            viewBindingClazz = viewBindingClazz,
-        )
+        ): FragmentViewBindingDelegate<T> =
+            FragmentViewBindingDelegate(
+                fragment = fragment,
+                viewBindingClazz = viewBindingClazz,
+            )
     }
 }

@@ -2,16 +2,16 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f64bc2c505e4e689d4099561b86f1f37",
+    "identityHash": "ec8aff29fef6c1e8755be56008326285",
     "entities": [
       {
         "tableName": "students",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`devName` TEXT NOT NULL, `releasedInGlobal` INTEGER NOT NULL, `name` TEXT NOT NULL, `squadType` TEXT NOT NULL, `tacticRole` TEXT NOT NULL, `attackType` TEXT NOT NULL, `defenseType` TEXT NOT NULL, `weaponType` TEXT NOT NULL, `position` TEXT NOT NULL, `school` TEXT NOT NULL, `fullName` TEXT NOT NULL, `club` TEXT NOT NULL, `schoolYear` TEXT NOT NULL, `basicInfo` TEXT NOT NULL, `age` TEXT NOT NULL, `birthday` TEXT NOT NULL, `height` TEXT NOT NULL, `hobbies` TEXT NOT NULL, `designer` TEXT NOT NULL, `illustrator` TEXT NOT NULL, `cv` TEXT NOT NULL, `bgImgPath` TEXT NOT NULL, `weaponImgPath` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, PRIMARY KEY(`devName`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `releasedInGlobal` INTEGER NOT NULL, `name` TEXT NOT NULL, `squadType` TEXT NOT NULL, `tacticRole` TEXT NOT NULL, `attackType` TEXT NOT NULL, `defenseType` TEXT NOT NULL, `weaponType` TEXT NOT NULL, `position` TEXT NOT NULL, `school` TEXT NOT NULL, `imgPath` TEXT NOT NULL, `fullName` TEXT NOT NULL, `club` TEXT NOT NULL, `schoolYear` TEXT NOT NULL, `basicInfo` TEXT NOT NULL, `age` TEXT NOT NULL, `birthday` TEXT NOT NULL, `height` TEXT NOT NULL, `hobbies` TEXT NOT NULL, `designer` TEXT NOT NULL, `illustrator` TEXT NOT NULL, `cv` TEXT NOT NULL, `devName` TEXT NOT NULL, `bgImgPath` TEXT NOT NULL, `weaponImgPath` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
-            "fieldPath": "devName",
-            "columnName": "devName",
-            "affinity": "TEXT",
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -65,6 +65,12 @@
           {
             "fieldPath": "school",
             "columnName": "school",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imgPath",
+            "columnName": "imgPath",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -135,6 +141,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "devName",
+            "columnName": "devName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "bgImgPath",
             "columnName": "bgImgPath",
             "affinity": "TEXT",
@@ -156,7 +168,7 @@
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "devName"
+            "id"
           ]
         },
         "indices": [],
@@ -166,7 +178,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f64bc2c505e4e689d4099561b86f1f37')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ec8aff29fef6c1e8755be56008326285')"
     ]
   }
 }

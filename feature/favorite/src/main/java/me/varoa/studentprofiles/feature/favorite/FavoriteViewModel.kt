@@ -6,8 +6,8 @@ import me.varoa.studentprofiles.core.domain.usecase.FavoriteListUseCase
 import javax.inject.Inject
 
 @HiltViewModel
-class FavoriteViewModel @Inject constructor(
-    private val useCase: FavoriteListUseCase
-) : BaseViewModel() {
-
-}
+class FavoriteViewModel
+    @Inject
+    constructor(
+        private val useCase: FavoriteListUseCase,
+    ) : BaseViewModel()

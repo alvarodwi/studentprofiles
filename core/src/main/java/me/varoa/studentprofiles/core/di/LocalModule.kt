@@ -15,11 +15,13 @@ import javax.inject.Singleton
 class LocalModule {
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context): AppDatabase =
+    fun provideDatabase(
+        @ApplicationContext context: Context,
+    ): AppDatabase =
         Room.databaseBuilder(
             context,
             AppDatabase::class.java,
-            "studentprofiles.db"
+            "studentprofiles.db",
         ).build()
 
     @Provides

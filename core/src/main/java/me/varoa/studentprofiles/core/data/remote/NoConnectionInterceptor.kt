@@ -14,7 +14,7 @@ import java.net.InetSocketAddress
 import java.net.Socket
 
 class NoConnectionInterceptor(
-    private val context: Context
+    private val context: Context,
 ) : Interceptor {
     companion object {
         private const val TIMEOUT_DURATION = 1500

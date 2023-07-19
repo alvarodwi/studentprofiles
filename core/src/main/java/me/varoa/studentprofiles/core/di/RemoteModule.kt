@@ -24,9 +24,9 @@ class RemoteModule {
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(
-                HttpLoggingInterceptor {message ->
+                HttpLoggingInterceptor { message ->
                     logcat("API") { message }
-                }.setLevel(HttpLoggingInterceptor.Level.BASIC)
+                }.setLevel(HttpLoggingInterceptor.Level.BASIC),
             )
             .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.MINUTES)
             .readTimeout(DEFAULT_TIMEOUT, TimeUnit.MINUTES)

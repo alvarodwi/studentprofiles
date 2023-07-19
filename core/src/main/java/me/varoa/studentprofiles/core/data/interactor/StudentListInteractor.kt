@@ -8,8 +8,10 @@ import me.varoa.studentprofiles.core.domain.repository.StudentRepository
 import me.varoa.studentprofiles.core.domain.usecase.StudentListUseCase
 import javax.inject.Inject
 
-class StudentListInteractor @Inject constructor(
-    private val repository: StudentRepository
-)  : StudentListUseCase{
-    override fun getStudents(query: StudentQuery): Flow<PagingData<StudentMinified>> = repository.getStudents(query)
-}
+class StudentListInteractor
+    @Inject
+    constructor(
+        private val repository: StudentRepository,
+    ) : StudentListUseCase {
+        override fun getStudents(query: StudentQuery): Flow<PagingData<StudentMinified>> = repository.getStudents(query)
+    }

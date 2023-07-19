@@ -11,10 +11,11 @@ enum class School(val key: String, val fullName: String) {
     SRT("SRT", "SRT Special Academy"),
     TRINITY("Trinity", "Trinity General School"),
     VALKYRIE("Valkyrie", "Valkyrie Police School"),
-    ETC("ETC", "Etc.");
+    ETC("ETC", "Etc."),
+    ;
 
     companion object {
-        private val map: Map<String, School> = School.values().associateBy { it.key }
-        infix fun from(key: String) = map[key] ?: ETC
+        private val MAP: Map<String, School> = School.values().associateBy { it.key }
+        infix fun from(key: String) = MAP[key] ?: ETC
     }
 }

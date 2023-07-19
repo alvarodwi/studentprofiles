@@ -14,8 +14,8 @@ import me.varoa.studentprofiles.core.domain.model.WeaponType
 
 fun StudentJson.asEntity() =
     StudentEntity(
+        id = id,
         releasedInGlobal = isReleased[1],
-        devName = devName,
         name = name,
         squadType = squadType,
         tacticRole = tacticRole,
@@ -35,15 +35,17 @@ fun StudentJson.asEntity() =
         designer = designer,
         illustrator = illustrator,
         cv = cv,
+        imgPath = imgPath,
+        devName = devName,
         bgImgPath = bgImgPath,
-        weaponImgPath = weaponImgPath
+        weaponImgPath = weaponImgPath,
     )
 
 fun StudentEntity.asModel() =
     Student(
+        id = id,
         releasedInGlobal = releasedInGlobal,
         name = name,
-        devName = devName,
         squadType = SquadType from squadType,
         tacticRole = TacticRole from tacticRole,
         attackType = AttackType from attackType,
@@ -51,21 +53,23 @@ fun StudentEntity.asModel() =
         weaponType = WeaponType.valueOf(weaponType),
         position = StudentPosition.valueOf(position),
         school = School from school,
-        profile = StudentProfile(
-            fullName = fullName,
-            club = LocalizationUtil.fetchClubName(club),
-            schoolYear = schoolYear,
-            basicInfo = basicInfo,
-            age = age,
-            birthday = birthday,
-            height = height,
-            hobbies = hobbies,
-            designer = designer,
-            illustrator = illustrator,
-            cv = cv,
-            bgImgPath = bgImgPath,
-            weaponImgPath = weaponImgPath
-        ),
-        isFavorite = isFavorite
+        imgPath = imgPath,
+        profile =
+            StudentProfile(
+                fullName = fullName,
+                club = LocalizationUtil.fetchClubName(club),
+                schoolYear = schoolYear,
+                basicInfo = basicInfo,
+                age = age,
+                birthday = birthday,
+                height = height,
+                hobbies = hobbies,
+                designer = designer,
+                illustrator = illustrator,
+                cv = cv,
+                devName = devName,
+                bgImgPath = bgImgPath,
+                weaponImgPath = weaponImgPath,
+            ),
+        isFavorite = isFavorite,
     )
-

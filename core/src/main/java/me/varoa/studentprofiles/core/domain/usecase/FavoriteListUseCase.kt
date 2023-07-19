@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 import me.varoa.studentprofiles.core.domain.model.StudentMinified
 
 interface FavoriteListUseCase {
-    fun getFavorites() : Flow<PagingData<StudentMinified>>
+    fun getFavorites(): Flow<PagingData<StudentMinified>>
 }

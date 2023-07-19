@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">StudentProfiles</string>
     <string name="title_favorite">Favorite</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_filter">Filter</string>
+    <string name="hint_search_bar">Search students</string>
+    <string name="subtitle_no_sync_yet">Looks like you haven\'t synced the students data yet. Please click the button below to start syncing.</string>
+    <string name="title_no_sync_yet">Database empty</string>
+    <string name="snackbar_sync_completed">Syncing student data complete</string>
 </resources>
