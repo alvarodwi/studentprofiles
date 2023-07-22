@@ -46,6 +46,9 @@ dependencies {
     api(libs.androidx.swipeRefreshLayout)
     api(libs.androidx.preference)
 
+    // other
+    implementation(libs.hilt.ext.navigation)
+
     // testing
     testImplementation(libs.bundles.unitTest)
     androidTestImplementation(libs.bundles.uiTest)

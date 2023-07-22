@@ -29,8 +29,12 @@ dependencies {
     // remote
     implementation(libs.bundles.networking)
 
-    // other
+    // work
     api(libs.androidx.work)
+    api(libs.hilt.ext.work)
+    kapt(libs.hilt.ext.compiler)
+
+    // other
     api(libs.androidx.paging)
     api(libs.coil)
     api(libs.logcat)

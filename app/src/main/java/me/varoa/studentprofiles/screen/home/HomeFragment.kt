@@ -1,7 +1,9 @@
 package me.varoa.studentprofiles.screen.home
 
+import android.graphics.Color
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +18,7 @@ import logcat.logcat
 import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.base.BaseFragment
 import me.varoa.studentprofiles.base.UiEvent
+import me.varoa.studentprofiles.core.data.local.query.SortDirectionKey
 import me.varoa.studentprofiles.core.work.SyncWorker
 import me.varoa.studentprofiles.databinding.FragmentHomeBinding
 import me.varoa.studentprofiles.ext.snackbar
@@ -23,9 +26,10 @@ import me.varoa.studentprofiles.viewbinding.viewBinding
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override val binding by viewBinding<FragmentHomeBinding>()
-    override val viewModel by viewModels<HomeViewModel>()
+    override val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.nav_home)
 
     private lateinit var adapter: HomeAdapter
+    private lateinit var searchView: SearchView
 
     override fun setupUiEvent() {
         eventJob =
@@ -60,6 +64,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         with(binding.layoutHome) {
             setupAdapter(recyclerView)
             setupSearchBar()
+            btnSort.setOnClickListener {
+                navigateTo(HomeFragmentDirections.actionHomeToSortSheet())
+            }
+            btnSortDirection.setOnClickListener {
+                viewModel.updateSortDirection()
+            }
         }
     }
 
@@ -73,13 +83,56 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             adapter.loadStateFlow.collectLatest { loadState ->
                 logcat { "Collecting adapter loadStateFlow" }
                 if (loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
-                    toggleSyncLayout(adapter.itemCount < 1)
+                    // toggleSyncLayout(adapter.itemCount < 1)
                 }
             }
         }
     }
 
     private fun setupSearchBar() {
+        with(binding.layoutHome.toolbar) {
+            // search
+            val searchAction = menu.findItem(R.id.action_search)
+            searchView = searchAction.actionView as SearchView
+            searchView.queryHint = getString(R.string.hint_search_view)
+            searchView.setBackgroundColor(Color.TRANSPARENT)
+            searchView.setOnQueryTextListener(
+                object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        searchView.clearFocus()
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        if (newText.isNullOrEmpty()) {
+                            viewModel.search("")
+                        } else {
+                            viewModel.search(newText)
+                        }
+                        return false
+                    }
+                },
+            )
+            searchView.setOnSearchClickListener {
+                menu.findItem(R.id.action_filter).isVisible = false
+            }
+            searchView.setOnCloseListener {
+                menu.findItem(R.id.action_filter).isVisible = true
+                false
+            }
+            setOnClickListener {
+                menu.findItem(R.id.action_search).expandActionView()
+            }
+            setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.action_filter -> {
+                        navigateTo(HomeFragmentDirections.actionHomeToFilterSheet())
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
     }
 
     private fun observeStudents() =
@@ -89,8 +142,16 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun observeQuery() =
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.query.collectLatest {
-                logcat { "Latest query -> $it" }
+            viewModel.query.collectLatest { query ->
+                with(binding.layoutHome) {
+                    btnSort.text = query.sort.name
+                    btnSortDirection.setIconResource(
+                        when (query.sortDirection) {
+                            SortDirectionKey.Ascending -> R.drawable.ic_sort_asc
+                            else -> R.drawable.ic_sort_desc
+                        },
+                    )
+                }
             }
         }
 

@@ -3,11 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main.xml"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/nav_home">
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="me.varoa.studentprofiles.screen.home.HomeFragment"
-        android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+    <navigation
+        android:id="@+id/nav_home"
+        android:label="Home Navigation"
+        app:startDestination="@id/homeFragment">
+        <fragment
+            android:id="@+id/homeFragment"
+            android:name="me.varoa.studentprofiles.screen.home.HomeFragment"
+            android:label="HomeFragment"
+            tools:layout="@layout/fragment_home">
+            <action
+                android:id="@+id/action_home_to_sortSheet"
+                app:destination="@id/sortSheet" />
+            <action
+                android:id="@+id/action_home_to_filterSheet"
+                app:destination="@id/filterSheet" />
+        </fragment>
+        <dialog
+            android:id="@+id/sortSheet"
+            android:name="me.varoa.studentprofiles.screen.home.sort.SortSheet"
+            android:label="SortSheet"
+            tools:layout="@layout/sheet_sort" />
+
+        <dialog
+            android:id="@+id/filterSheet"
+            android:name="me.varoa.studentprofiles.screen.home.filter.FilterSheet"
+            android:label="FilterSheet"
+            tools:layout="@layout/sheet_filter" />
+    </navigation>
 </navigation>
