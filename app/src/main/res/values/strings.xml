@@ -8,7 +8,7 @@
     <string name="subtitle_no_sync_yet">Looks like you haven\'t synced the students data yet. Please click the button below to start syncing.</string>
     <string name="title_no_sync_yet">Database empty</string>
     <string name="snackbar_sync_completed">Syncing student data complete</string>
-    <string name="menu_search">Search</string>
+    <string name="title_search">Search</string>
     <string name="title_sort_by">Sort by</string>
     <string name="title_filter">Filter</string>
     <string name="lbl_filter_server">Game server</string>
@@ -20,4 +20,7 @@
     <string name="lbl_filter_position">Position</string>
     <string name="lbl_filter_school">Academy</string>
     <string name="lbl_reset_filter">Reset Filter</string>
+    <string name="title_detail">Student Info</string>
+    <string name="cd_detail_iv_background">Academy background image</string>
+    <string name="cd_detail_iv_portrait">Student\'s portrait image</string>
 </resources>

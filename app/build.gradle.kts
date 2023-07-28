@@ -28,6 +28,7 @@ android {
         }
     }
     buildFeatures.viewBinding = true
+    dynamicFeatures.add(":feature:favorite")
 }
 
 dependencies {
@@ -41,10 +42,11 @@ dependencies {
     api(libs.bundles.androidx.lifecycle)
 
     // ui
-    api(libs.google.material)
-    api(libs.androidx.constraintLayout)
-    api(libs.androidx.swipeRefreshLayout)
-    api(libs.androidx.preference)
+    implementation(libs.google.material)
+    implementation(libs.androidx.constraintLayout)
+    implementation(libs.androidx.swipeRefreshLayout)
+    implementation(libs.androidx.viewpager2)
+    implementation(libs.androidx.preference)
 
     // other
     implementation(libs.hilt.ext.navigation)

@@ -5,7 +5,7 @@ enum class School(val key: String, val fullName: String) {
     ARIUS("Arius", "Arius Satellite School"),
     GEHENNA("Gehenna", "Gehenna Academy"),
     HYAKKIYAKO("Hyakkiyako", "Allied Hyakkiyako Academy"),
-    MILLENIUM("Millenium", "Millennium Science School"),
+    MILLENIUM("Millennium", "Millennium Science School"),
     RED_WINTER("RedWinter", "Red Winter Federal Academy"),
     SHANHAIJING("Shanhaijing", "Shanhaijing Academy"),
     SRT("SRT", "SRT Special Academy"),

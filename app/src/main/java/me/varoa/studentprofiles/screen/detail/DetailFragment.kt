@@ -1,47 +1,56 @@
 package me.varoa.studentprofiles.screen.detail
 
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import logcat.logcat
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.base.BaseFragment
-import me.varoa.studentprofiles.base.UiEvent
 import me.varoa.studentprofiles.databinding.FragmentDetailBinding
-import me.varoa.studentprofiles.ext.snackbar
 import me.varoa.studentprofiles.viewbinding.viewBinding
 
 class DetailFragment : BaseFragment(R.layout.fragment_detail) {
     override val binding by viewBinding<FragmentDetailBinding>()
     override val viewModel by viewModels<DetailViewModel>()
 
+    private val args by navArgs<DetailFragmentArgs>()
+    private lateinit var adapter: DetailStateAdapter
+
     override fun setupUiEvent() {
-        eventJob =
-            viewModel.events
-                .onEach { event ->
-                    when (event) {
-                        is UiEvent.Loading -> {
-                            toggleLoading(true)
-                        }
-
-                        is UiEvent.NotLoading -> {
-                            toggleLoading(false)
-                        }
-
-                        is UiEvent.Error -> {
-                            toggleLoading(false)
-                            logcat { "Error : ${event.throwable?.message}" }
-                            snackbar("Error : ${event.throwable?.message}")
-                        }
-                    }
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun bindView() {
-        // help
+        binding.toolbar.apply {
+            setNavigationOnClickListener { findNavController().popBackStack() }
+            setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.action_favorite -> {
+                        viewModel.toggleFavorite()
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }
+        adapter = DetailStateAdapter(this, args.id)
+        binding.viewPager.adapter = adapter
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isFavorite.collectLatest {
+                binding.toolbar.menu.getItem(0).icon =
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        if (it) R.drawable.ic_heart_fill else R.drawable.ic_heart,
+                    )
+            }
+        }
     }
 
     override fun toggleLoading(isLoading: Boolean) {
+        // binding
     }
 }

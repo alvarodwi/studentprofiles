@@ -7,7 +7,7 @@ import me.varoa.studentprofiles.core.domain.model.StudentMinified
 
 @Dao
 interface FavoriteDao {
-    @Query("SELECT name, squadType, tacticRole, imgPath FROM students WHERE isFavorite = 1")
+    @Query("SELECT id, name, squadType, tacticRole, imgPath FROM students WHERE isFavorite = 1")
     fun getFavorites(): PagingSource<Int, StudentMinified>
 
     @Query("UPDATE students SET isFavorite = :isFavorite WHERE id = :id")

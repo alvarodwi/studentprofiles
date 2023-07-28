@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/cd_detail_iv_background"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <ImageView
+        android:id="@+id/iv_portrait"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/cd_detail_iv_portrait"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layout_info"
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textAppearance="?textAppearanceHeadlineSmall"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Fuuka (New Year)" />
+
+            <ImageView
+                android:id="@+id/iv_school"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/school_gehenna" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_squad_type"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:textAppearance="?textAppearanceLabelSmall"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="@color/brand_type_special"
+                app:chipStrokeColor="@android:color/transparent"
+                app:layout_constraintStart_toStartOf="@id/tv_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                app:shapeAppearanceOverlay="?shapeAppearanceCornerExtraLarge"
+                tools:text="SPECIAL" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_role"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginStart="4dp"
+                android:textAppearance="?textAppearanceLabelSmall"
+                android:textColor="?colorOnSurface"
+                app:chipBackgroundColor="?colorSurfaceContainerHighest"
+                app:chipIcon="@drawable/role_supporter"
+                app:chipIconSize="12dp"
+                app:chipIconTint="?colorOnSurface"
+                app:chipStrokeColor="@android:color/transparent"
+                app:layout_constraintStart_toEndOf="@id/chip_squad_type"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                app:shapeAppearanceOverlay="?shapeAppearanceCornerExtraLarge"
+                tools:text="Support" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_atk_type"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:textAppearance="?textAppearanceLabelSmall"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="@color/brand_atk_piercing"
+                app:chipIcon="@drawable/type_attack"
+                app:chipIconSize="12dp"
+                app:chipSpacingVertical="12dp"
+                app:chipStrokeColor="@android:color/transparent"
+                app:layout_constraintStart_toStartOf="@id/chip_squad_type"
+                app:layout_constraintTop_toBottomOf="@id/chip_squad_type"
+                app:shapeAppearanceOverlay="?shapeAppearanceCornerExtraLarge"
+                tools:text="Piercing" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_def_type"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginStart="4dp"
+                android:textAppearance="?textAppearanceLabelSmall"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="@color/brand_atk_mystic"
+                app:chipIcon="@drawable/type_defense"
+                app:chipIconSize="12dp"
+                app:chipStrokeColor="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="@id/chip_atk_type"
+                app:layout_constraintStart_toEndOf="@id/chip_atk_type"
+                app:layout_constraintTop_toTopOf="@id/chip_atk_type"
+                app:shapeAppearanceOverlay="?shapeAppearanceCornerExtraLarge"
+                tools:text="Mystic" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_position"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginStart="4dp"
+                android:textAppearance="?textAppearanceLabelSmall"
+                android:textColor="@android:color/white"
+                app:chipBackgroundColor="@color/brand_position"
+                app:chipStrokeColor="@android:color/transparent"
+                app:layout_constraintBottom_toBottomOf="@id/chip_squad_type"
+                app:layout_constraintStart_toEndOf="@id/chip_role"
+                app:layout_constraintTop_toTopOf="@id/chip_squad_type"
+                app:shapeAppearanceOverlay="?shapeAppearanceCornerExtraLarge"
+                tools:text="BACK" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="Swipe down to see student's profile"
+                android:textAppearance="?textAppearanceLabelSmall"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chip_atk_type" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

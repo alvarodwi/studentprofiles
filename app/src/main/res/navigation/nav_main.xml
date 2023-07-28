@@ -20,6 +20,12 @@
             <action
                 android:id="@+id/action_home_to_filterSheet"
                 app:destination="@id/filterSheet" />
+            <action
+                android:id="@+id/action_home_to_detail"
+                app:destination="@id/detailFragment" />
+            <action
+                android:id="@+id/action_home_to_favorite"
+                app:destination="@id/favoriteFragment" />
         </fragment>
         <dialog
             android:id="@+id/sortSheet"
@@ -33,4 +39,25 @@
             android:label="FilterSheet"
             tools:layout="@layout/sheet_filter" />
     </navigation>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="me.varoa.studentprofiles.screen.detail.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="me.varoa.studentprofiles.feature.favorite.screen.FavoriteFragment"
+        android:label="FavoriteFragment"
+        app:moduleName="feature:favorite"
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favorite_to_detail"
+            app:destination="@id/detailFragment" />
+    </fragment>
+
 </navigation>

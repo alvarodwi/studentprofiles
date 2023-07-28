@@ -12,7 +12,7 @@ data class StudentQuery(
     fun generateQuery(): SimpleSQLiteQuery {
         val result =
             StringBuilder().apply {
-                append("SELECT name, squadType, tacticRole, imgPath FROM students")
+                append("SELECT id, name, squadType, tacticRole, imgPath FROM students")
                 append(" WHERE name LIKE '%$search%'")
                 append(filter.getQuery())
                 append(" ORDER BY ${sort.key} ${sortDirection.key}")

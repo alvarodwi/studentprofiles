@@ -1,5 +1,8 @@
 package me.varoa.studentprofiles.ext
 
+import android.os.Build
+import android.text.Html
+import android.text.Spanned
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
@@ -42,4 +45,12 @@ fun toggleAppTheme(value: String) {
             else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         },
     )
+}
+
+fun String.decodeHtml(): Spanned {
+    return if (Build.VERSION.SDK_INT >= 24) {
+        Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
+    }
+    else
+        Html.fromHtml(this)
 }

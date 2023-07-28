@@ -22,7 +22,7 @@ data class StudentJson(
     @SerialName("SchoolYear") val schoolYear: String,
     @SerialName("ProfileIntroduction") val basicInfo: String,
     @SerialName("CharacterAge") val age: String,
-    @SerialName("BirthDay") val birthday: String,
+    @SerialName("Birthday") val birthday: String,
     @SerialName("CharHeightMetric") val height: String,
     @SerialName("Hobby") val hobbies: String,
     @SerialName("Designer") val designer: String,

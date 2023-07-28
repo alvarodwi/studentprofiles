@@ -10,20 +10,19 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import logcat.logcat
 import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.base.BaseFragment
-import me.varoa.studentprofiles.base.UiEvent
 import me.varoa.studentprofiles.core.data.local.query.SortDirectionKey
 import me.varoa.studentprofiles.core.work.SyncWorker
 import me.varoa.studentprofiles.databinding.FragmentHomeBinding
 import me.varoa.studentprofiles.ext.snackbar
 import me.varoa.studentprofiles.viewbinding.viewBinding
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override val binding by viewBinding<FragmentHomeBinding>()
     override val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.nav_home)
@@ -32,21 +31,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private lateinit var searchView: SearchView
 
     override fun setupUiEvent() {
-        eventJob =
-            viewModel.events
-                .onEach { event ->
-                    when (event) {
-                        is UiEvent.Error -> {
-                            toggleLoading(false)
-                            logcat { "Error : ${event.throwable?.message}" }
-                            snackbar("Error : ${event.throwable?.message}")
-                        }
-                    }
-                }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun bindView() {
         binding.swipeRefresh.isEnabled = false
+        setupBottomBar()
         setupSyncLayout()
         setupHomeLayout()
 
@@ -76,14 +65,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun setupAdapter(view: RecyclerView) {
         adapter =
             HomeAdapter(imageLoader) { student ->
-                logcat { "Student ${student.name} clicked!" }
+                navigateTo(HomeFragmentDirections.actionHomeToDetail(student.id))
             }
         view.adapter = adapter
         viewLifecycleOwner.lifecycleScope.launch {
             adapter.loadStateFlow.collectLatest { loadState ->
                 logcat { "Collecting adapter loadStateFlow" }
                 if (loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
-                    // toggleSyncLayout(adapter.itemCount < 1)
+                    toggleSyncLayout(adapter.itemCount < 1)
                 }
             }
         }
@@ -129,6 +118,22 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                         navigateTo(HomeFragmentDirections.actionHomeToFilterSheet())
                         true
                     }
+
+                    else -> false
+                }
+            }
+        }
+    }
+
+    private fun setupBottomBar() {
+        with(binding.bottomAppBar) {
+            setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.action_favorite -> {
+                        navigateTo(HomeFragmentDirections.actionHomeToFavorite())
+                        true
+                    }
+
                     else -> false
                 }
             }
