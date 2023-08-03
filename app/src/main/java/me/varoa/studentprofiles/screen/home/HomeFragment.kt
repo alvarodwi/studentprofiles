@@ -3,7 +3,6 @@ package me.varoa.studentprofiles.screen.home
 import android.graphics.Color
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
@@ -21,17 +20,15 @@ import me.varoa.studentprofiles.core.work.SyncWorker
 import me.varoa.studentprofiles.databinding.FragmentHomeBinding
 import me.varoa.studentprofiles.ext.snackbar
 import me.varoa.studentprofiles.viewbinding.viewBinding
+import org.koin.androidx.navigation.koinNavGraphViewModel
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override val binding by viewBinding<FragmentHomeBinding>()
-    override val viewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.nav_home)
+    override val viewModel by koinNavGraphViewModel<HomeViewModel>(R.id.nav_home)
 
     private lateinit var adapter: HomeAdapter
     private lateinit var searchView: SearchView
-
-    override fun setupUiEvent() {
-    }
 
     override fun bindView() {
         binding.swipeRefresh.isEnabled = false
@@ -41,12 +38,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         observeStudents()
         observeQuery()
-    }
-
-    override fun toggleLoading(isLoading: Boolean) {
-        with(binding.swipeRefresh) {
-            isRefreshing = isLoading
-        }
     }
 
     private fun setupHomeLayout() {
@@ -163,7 +154,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun setupSyncLayout() {
         with(binding.layoutSync) {
             btnSync.setOnClickListener {
-                toggleLoading(true)
                 // init work
                 val syncRequest =
                     OneTimeWorkRequestBuilder<SyncWorker>()
@@ -175,7 +165,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                     .observe(viewLifecycleOwner) { workInfo ->
                         if (workInfo?.state == WorkInfo.State.SUCCEEDED) {
                             snackbar(getString(R.string.snackbar_sync_completed))
-                            toggleLoading(false)
                             toggleSyncLayout(false)
                         }
                     }

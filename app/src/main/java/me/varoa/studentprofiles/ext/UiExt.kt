@@ -50,7 +50,7 @@ fun toggleAppTheme(value: String) {
 fun String.decodeHtml(): Spanned {
     return if (Build.VERSION.SDK_INT >= 24) {
         Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
-    }
-    else
+    } else {
         Html.fromHtml(this)
+    }
 }

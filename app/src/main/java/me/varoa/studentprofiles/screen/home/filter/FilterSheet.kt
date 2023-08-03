@@ -3,8 +3,6 @@ package me.varoa.studentprofiles.screen.home.filter
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.ViewCompat
-import androidx.fragment.app.viewModels
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -25,11 +23,13 @@ import me.varoa.studentprofiles.core.domain.model.WeaponType
 import me.varoa.studentprofiles.databinding.SheetFilterBinding
 import me.varoa.studentprofiles.screen.home.HomeViewModel
 import me.varoa.studentprofiles.viewbinding.viewBinding
+import org.koin.androidx.navigation.koinNavGraphViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
     private val binding by viewBinding<SheetFilterBinding>()
-    private val homeViewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.nav_home)
-    private val viewModel by viewModels<FilterSheetViewModel>()
+    private val homeViewModel by koinNavGraphViewModel<HomeViewModel>(R.id.nav_home)
+    private val viewModel by viewModel<FilterSheetViewModel>()
 
     override fun onViewCreated(
         view: View,
@@ -90,9 +90,9 @@ class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
             }
             // squad type
             with(cgSquadType) {
-                enumValues<SquadType>().forEach { type ->
+                enumValues<SquadType>().forEach {
                     this.addView(
-                        createChip(type, type.name, currentState.filterKey.squadType == type) { type, checked ->
+                        createChip(it, it.name, currentState.filterKey.squadType == it) { type, checked ->
                             homeViewModel.updateFilter(currentState.filterKey.copy(squadType = if (checked) type else null))
                         },
                     )

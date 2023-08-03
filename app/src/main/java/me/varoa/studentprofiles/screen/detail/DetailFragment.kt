@@ -1,7 +1,6 @@
 package me.varoa.studentprofiles.screen.detail
 
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -11,16 +10,14 @@ import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.base.BaseFragment
 import me.varoa.studentprofiles.databinding.FragmentDetailBinding
 import me.varoa.studentprofiles.viewbinding.viewBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragment : BaseFragment(R.layout.fragment_detail) {
     override val binding by viewBinding<FragmentDetailBinding>()
-    override val viewModel by viewModels<DetailViewModel>()
+    override val viewModel by viewModel<DetailViewModel>()
 
     private val args by navArgs<DetailFragmentArgs>()
     private lateinit var adapter: DetailStateAdapter
-
-    override fun setupUiEvent() {
-    }
 
     override fun bindView() {
         binding.toolbar.apply {
@@ -48,9 +45,5 @@ class DetailFragment : BaseFragment(R.layout.fragment_detail) {
                     )
             }
         }
-    }
-
-    override fun toggleLoading(isLoading: Boolean) {
-        // binding
     }
 }

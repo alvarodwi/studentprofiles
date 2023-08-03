@@ -16,7 +16,7 @@ val Project.libs
     get() : VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 internal fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *>
+    commonExtension: CommonExtension<*, *, *, *,*>
 ) {
     commonExtension.apply {
         compileSdk = 33

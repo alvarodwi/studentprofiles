@@ -1,7 +1,6 @@
 package me.varoa.studentprofiles.screen.detail.profile
 
 import android.graphics.Typeface
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.request.ImageRequest
 import kotlinx.coroutines.flow.collectLatest
@@ -14,13 +13,11 @@ import me.varoa.studentprofiles.databinding.FragmentProfileDetailBinding
 import me.varoa.studentprofiles.ext.decodeHtml
 import me.varoa.studentprofiles.screen.detail.DetailViewModel
 import me.varoa.studentprofiles.viewbinding.viewBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileDetailFragment : BaseFragment(R.layout.fragment_profile_detail) {
     override val binding by viewBinding<FragmentProfileDetailBinding>()
-    override val viewModel by viewModels<DetailViewModel>()
-
-    override fun setupUiEvent() {
-    }
+    override val viewModel by viewModel<DetailViewModel>()
 
     override fun bindView() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -65,8 +62,5 @@ class ProfileDetailFragment : BaseFragment(R.layout.fragment_profile_detail) {
                 imageLoader.enqueue(imgData)
             }
         }
-    }
-
-    override fun toggleLoading(isLoading: Boolean) {
     }
 }

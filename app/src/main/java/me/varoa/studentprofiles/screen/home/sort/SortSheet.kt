@@ -2,8 +2,6 @@ package me.varoa.studentprofiles.screen.home.sort
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -15,11 +13,13 @@ import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.databinding.SheetSortBinding
 import me.varoa.studentprofiles.screen.home.HomeViewModel
 import me.varoa.studentprofiles.viewbinding.viewBinding
+import org.koin.androidx.navigation.koinNavGraphViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SortSheet : BottomSheetDialogFragment(R.layout.sheet_sort) {
     private val binding by viewBinding<SheetSortBinding>()
-    private val homeViewModel by hiltNavGraphViewModels<HomeViewModel>(R.id.nav_home)
-    private val viewModel by viewModels<SortSheetViewModel>()
+    private val homeViewModel by koinNavGraphViewModel<HomeViewModel>(R.id.nav_home)
+    private val viewModel by viewModel<SortSheetViewModel>()
 
     override fun onViewCreated(
         view: View,

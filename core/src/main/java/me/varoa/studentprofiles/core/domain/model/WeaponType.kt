@@ -11,4 +11,5 @@ enum class WeaponType {
     RG,
     MG,
     MT,
+    FT,
 }

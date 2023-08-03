@@ -1,6 +1,6 @@
 plugins {
     id("studentprofiles.android.application")
-    id("studentprofiles.android.hilt")
+    id("studentprofiles.android.koin")
     id("androidx.navigation.safeargs.kotlin")
 }
 
@@ -48,13 +48,8 @@ dependencies {
     implementation(libs.androidx.viewpager2)
     implementation(libs.androidx.preference)
 
-    // other
-    implementation(libs.hilt.ext.navigation)
-
     // testing
     testImplementation(libs.bundles.unitTest)
     androidTestImplementation(libs.bundles.uiTest)
     androidTestImplementation(libs.androidx.navigation.testing)
-    androidTestImplementation(libs.hilt.android.testing)
-    kaptAndroidTest(libs.hilt.compiler)
 }

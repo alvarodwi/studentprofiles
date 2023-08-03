@@ -3,7 +3,6 @@ package me.varoa.studentprofiles.screen.detail.basic
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.request.ImageRequest
 import kotlinx.coroutines.flow.collectLatest
@@ -21,13 +20,11 @@ import me.varoa.studentprofiles.databinding.FragmentBasicDetailBinding
 import me.varoa.studentprofiles.screen.detail.DetailViewModel
 import me.varoa.studentprofiles.utils.BlurTransformation
 import me.varoa.studentprofiles.viewbinding.viewBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BasicDetailFragment : BaseFragment(R.layout.fragment_basic_detail) {
     override val binding by viewBinding<FragmentBasicDetailBinding>()
-    override val viewModel by viewModels<DetailViewModel>()
-
-    override fun setupUiEvent() {
-    }
+    override val viewModel by viewModel<DetailViewModel>()
 
     override fun bindView() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -115,9 +112,5 @@ class BasicDetailFragment : BaseFragment(R.layout.fragment_basic_detail) {
                 ),
             )
         }
-    }
-
-    override fun toggleLoading(isLoading: Boolean) {
-        // do nothing
     }
 }

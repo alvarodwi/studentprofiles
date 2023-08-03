@@ -1,23 +1,39 @@
 package me.varoa.studentprofiles
 
 import android.app.Application
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
-import dagger.hilt.android.HiltAndroidApp
 import logcat.AndroidLogcatLogger
 import logcat.LogPriority
-import javax.inject.Inject
+import me.varoa.studentprofiles.core.di.coreModule
+import me.varoa.studentprofiles.core.di.localModule
+import me.varoa.studentprofiles.core.di.remoteModule
+import me.varoa.studentprofiles.core.di.repositoryModule
+import me.varoa.studentprofiles.core.di.useCaseModule
+import me.varoa.studentprofiles.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
+import org.koin.core.context.startKoin
 
-@HiltAndroidApp
-class App : Application(), Configuration.Provider {
-    @Inject lateinit var workerFactory: HiltWorkerFactory
-    override fun getWorkManagerConfiguration() =
-        Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .build()
-
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
         AndroidLogcatLogger.installOnDebuggableApp(this, minPriority = LogPriority.VERBOSE)
+
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            workManagerFactory()
+            // modules
+            modules(
+                listOf(
+                    localModule,
+                    remoteModule,
+                    repositoryModule,
+                    useCaseModule,
+                    coreModule,
+                    appModule,
+                ),
+            )
+        }
     }
 }

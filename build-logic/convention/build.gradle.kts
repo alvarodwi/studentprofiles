@@ -38,9 +38,9 @@ gradlePlugin {
             implementationClass = "AndroidLibraryConventionPlugin"
         }
 
-        register("androidHilt") {
-            id = "studentprofiles.android.hilt"
-            implementationClass = "AndroidHiltConventionPlugin"
+        register("androidKoin") {
+            id = "studentprofiles.android.koin"
+            implementationClass = "AndroidKoinConventionPlugin"
         }
     }
 }

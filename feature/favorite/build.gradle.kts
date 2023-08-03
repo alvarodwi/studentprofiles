@@ -1,6 +1,6 @@
 plugins {
     id("studentprofiles.android.feature")
-    id("studentprofiles.android.hilt")
+    id("studentprofiles.android.koin")
 }
 
 android {
@@ -9,5 +9,10 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
+
+    implementation(libs.google.material)
+    implementation(libs.androidx.constraintLayout)
+
     testImplementation(libs.bundles.unitTest)
 }

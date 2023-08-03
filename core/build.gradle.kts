@@ -1,6 +1,6 @@
 plugins {
     id("studentprofiles.android.library")
-    id("studentprofiles.android.hilt")
+    id("studentprofiles.android.koin")
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -31,8 +31,6 @@ dependencies {
 
     // work
     api(libs.androidx.work)
-    api(libs.hilt.ext.work)
-    kapt(libs.hilt.ext.compiler)
 
     // other
     api(libs.androidx.paging)

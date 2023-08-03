@@ -16,7 +16,7 @@ class FilterSheetViewModel : ViewModel() {
     val uiState = _uiState.asStateFlow()
 
     fun updateFilter(filterKey: FilterKey) {
-        _uiState.update { it.copy(filterKey = filterKey) }
+        _uiState.update { it.copy(filterKey = filterKey, canReset = filterKey != FilterKey()) }
     }
 
     fun updateCanReset(flag: Boolean) {
