@@ -15,12 +15,10 @@
         android:textAppearance="?textAppearanceLabelSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_photo"
-        app:layout_constraintTop_toBottomOf="@id/lbl_swipe_up"
         android:layout_width="144dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -28,6 +26,7 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lbl_swipe_up"
         app:shapeAppearanceOverlay="?shapeAppearanceCornerLarge"
         tools:src="@tools:sample/avatars" />
 
@@ -36,8 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textStyle="bold"
         android:textAppearance="?textAppearanceTitleMedium"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/iv_photo"
         app:layout_constraintTop_toTopOf="@id/iv_photo"
         tools:text="Aikiyo Fuuka" />
@@ -271,9 +270,9 @@
                 android:id="@+id/tv_weapon_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?colorOnSurfaceInverse"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textColor="?colorOnSurfaceInverse"
                 tools:text="SMG" />
 
             <ImageView

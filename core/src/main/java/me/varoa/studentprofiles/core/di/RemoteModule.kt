@@ -2,7 +2,6 @@ package me.varoa.studentprofiles.core.di
 
 import android.content.Context
 import coil.ImageLoader
-import dagger.hilt.android.qualifiers.ApplicationContext
 import logcat.logcat
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,7 +28,7 @@ val remoteModule =
         single { provideOkHttpClient() }
 
         fun provideCoilLoader(
-            @ApplicationContext context: Context,
+            context: Context,
             client: OkHttpClient,
         ) = ImageLoader.Builder(context)
             .okHttpClient(client)

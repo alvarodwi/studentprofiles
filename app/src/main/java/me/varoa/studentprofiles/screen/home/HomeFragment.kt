@@ -1,28 +1,22 @@
 package me.varoa.studentprofiles.screen.home
 
 import android.graphics.Color
+import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import logcat.logcat
 import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.base.BaseFragment
 import me.varoa.studentprofiles.core.data.local.query.SortDirectionKey
-import me.varoa.studentprofiles.core.work.SyncWorker
 import me.varoa.studentprofiles.databinding.FragmentHomeBinding
-import me.varoa.studentprofiles.ext.snackbar
 import me.varoa.studentprofiles.viewbinding.viewBinding
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
-@AndroidEntryPoint
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override val binding by viewBinding<FragmentHomeBinding>()
     override val viewModel by koinNavGraphViewModel<HomeViewModel>(R.id.nav_home)
@@ -31,9 +25,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private lateinit var searchView: SearchView
 
     override fun bindView() {
-        binding.swipeRefresh.isEnabled = false
         setupBottomBar()
-        setupSyncLayout()
+        setupErrorLayout()
         setupHomeLayout()
 
         observeStudents()
@@ -61,9 +54,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         view.adapter = adapter
         viewLifecycleOwner.lifecycleScope.launch {
             adapter.loadStateFlow.collectLatest { loadState ->
-                logcat { "Collecting adapter loadStateFlow" }
                 if (loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
-                    toggleSyncLayout(adapter.itemCount < 1)
+                    toggleErrorLayout(adapter.itemCount < 1)
                 }
             }
         }
@@ -93,13 +85,21 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                     }
                 },
             )
-            searchView.setOnSearchClickListener {
-                menu.findItem(R.id.action_filter).isVisible = false
-            }
-            searchView.setOnCloseListener {
-                menu.findItem(R.id.action_filter).isVisible = true
-                false
-            }
+            searchAction.setOnActionExpandListener(
+                object : MenuItem.OnActionExpandListener {
+                    override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+                        menu.findItem(R.id.action_filter).isVisible = false
+                        return true
+                    }
+
+                    override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                        menu.findItem(R.id.action_filter).isVisible = true
+                        viewModel.search("")
+                        toggleErrorLayout(false)
+                        return true
+                    }
+                },
+            )
             setOnClickListener {
                 menu.findItem(R.id.action_search).expandActionView()
             }
@@ -151,30 +151,18 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         }
 
-    private fun setupSyncLayout() {
-        with(binding.layoutSync) {
-            btnSync.setOnClickListener {
-                // init work
-                val syncRequest =
-                    OneTimeWorkRequestBuilder<SyncWorker>()
-                        .build()
-                val workManager = WorkManager.getInstance(requireContext())
-                workManager.enqueue(syncRequest)
-                // observe when done
-                workManager.getWorkInfoByIdLiveData(syncRequest.id)
-                    .observe(viewLifecycleOwner) { workInfo ->
-                        if (workInfo?.state == WorkInfo.State.SUCCEEDED) {
-                            snackbar(getString(R.string.snackbar_sync_completed))
-                            toggleSyncLayout(false)
-                        }
-                    }
-            }
+    private fun setupErrorLayout() {
+        with(binding.layoutHome.layoutError) {
+            tvTitle.text = getString(R.string.title_list_empty)
+            tvBody.text = getString(R.string.body_list_empty)
         }
     }
 
-    private fun toggleSyncLayout(isShown: Boolean) {
-        logcat { "toggleSyncLayout($isShown)" }
-        binding.layoutHome.root.isVisible = !isShown
-        binding.layoutSync.root.isVisible = isShown
+    private fun toggleErrorLayout(isShown: Boolean) {
+        logcat { "toggleErrorLayout($isShown)" }
+        with(binding.layoutHome) {
+            layoutList.isVisible = !isShown
+            layoutError.root.isVisible = isShown
+        }
     }
 }

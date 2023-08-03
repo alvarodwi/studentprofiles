@@ -12,23 +12,18 @@ import me.varoa.studentprofiles.core.domain.model.Student
 import me.varoa.studentprofiles.core.domain.model.StudentMinified
 import me.varoa.studentprofiles.core.domain.repository.StudentRepository
 import me.varoa.studentprofiles.core.util.asModel
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class StudentRepositoryImpl
-    @Inject
-    constructor(
-        private val dao: StudentDao,
-    ) : StudentRepository {
-        override fun getStudents(query: StudentQuery): Flow<PagingData<StudentMinified>> =
-            Pager(PagingConfig(pageSize = 20)) {
-                dao.getAll(query.generateQuery())
-            }.flow
+class StudentRepositoryImpl(
+    private val dao: StudentDao,
+) : StudentRepository {
+    override fun getStudents(query: StudentQuery): Flow<PagingData<StudentMinified>> =
+        Pager(PagingConfig(pageSize = 20)) {
+            dao.getAll(query.generateQuery())
+        }.flow
 
-        override fun getStudent(id: Int): Flow<Student> = dao.getStudent(id).map(StudentEntity::asModel)
+    override fun getStudent(id: Int): Flow<Student> = dao.getStudent(id).map(StudentEntity::asModel)
 
-        override suspend fun insertStudent(vararg student: StudentEntity) = dao.insert(*student)
+    override suspend fun insertStudent(vararg student: StudentEntity) = dao.insert(*student)
 
-        override suspend fun deleteAllStudent() = dao.deleteAll()
-    }
+    override suspend fun deleteAllStudent() = dao.deleteAll()
+}

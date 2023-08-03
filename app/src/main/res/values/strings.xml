@@ -23,4 +23,7 @@
     <string name="title_detail">Student Info</string>
     <string name="cd_detail_iv_background">Academy background image</string>
     <string name="cd_detail_iv_portrait">Student\'s portrait image</string>
+    <string name="btn_sync">Start Sync</string>
+    <string name="title_list_empty">List empty</string>
+    <string name="body_list_empty">There are no data to show here, please revise your search or filter query</string>
 </resources>

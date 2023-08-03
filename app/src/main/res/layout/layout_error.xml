@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_no_sync_yet"
-        android:textAlignment="center"
-        android:textAppearance="?textAppearanceTitleLarge"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_subtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/subtitle_no_sync_yet"
-        android:textAlignment="center"
-        android:textAppearance="?textAppearanceBodyMedium"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_sync"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Start Sync"
+        android:textAlignment="center"
+        android:textAppearance="?textAppearanceTitleMedium"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_subtitle" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Something went wrong" />
+
+    <TextView
+        android:id="@+id/tv_body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+        android:textAppearance="?textAppearanceBodyMedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="Please do something" />
 </androidx.constraintlayout.widget.ConstraintLayout>

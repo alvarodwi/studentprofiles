@@ -4,27 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <include
+        android:id="@+id/layout_home"
+        layout="@layout/layout_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/m3_bottom_nav_min_height"
-        android:isScrollContainer="false">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include
-                android:id="@+id/layout_home"
-                layout="@layout/layout_home" />
-
-            <include
-                android:id="@+id/layout_sync"
-                layout="@layout/layout_sync"
-                android:visibility="gone" />
-        </FrameLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        android:layout_marginBottom="@dimen/m3_bottom_nav_min_height" />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"

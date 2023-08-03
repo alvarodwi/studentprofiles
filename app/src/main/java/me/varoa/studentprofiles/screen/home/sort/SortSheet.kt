@@ -67,8 +67,10 @@ class SortSheet : BottomSheetDialogFragment(R.layout.sheet_sort) {
                     if (currentState.sortKey.name == sortKey.name) {
                         isChecked = true
                     }
-                    setOnCheckedChangeListener { _, _ ->
-                        homeViewModel.updateSort(sortKey)
+                    setOnCheckedChangeListener { _, checked ->
+                        if (checked) {
+                            homeViewModel.updateSort(sortKey)
+                        }
                     }
                 }
                 addView(chip)

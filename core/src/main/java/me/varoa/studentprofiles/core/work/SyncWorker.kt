@@ -35,7 +35,7 @@ class SyncWorker(
                     .url(ApiConfig.STUDENT_JSON_URL)
                     .build()
 
-            var response: Response? = null
+            val response: Response?
             try {
                 response = client.newCall(request).execute()
             } catch (e: IOException) {

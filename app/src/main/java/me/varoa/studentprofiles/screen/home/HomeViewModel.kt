@@ -1,6 +1,8 @@
 package me.varoa.studentprofiles.screen.home
 
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -9,6 +11,7 @@ import me.varoa.studentprofiles.core.data.local.query.FilterKey
 import me.varoa.studentprofiles.core.data.local.query.SortDirectionKey
 import me.varoa.studentprofiles.core.data.local.query.SortKey
 import me.varoa.studentprofiles.core.data.local.query.StudentQuery
+import me.varoa.studentprofiles.core.domain.model.StudentMinified
 import me.varoa.studentprofiles.core.domain.usecase.StudentListUseCase
 
 class HomeViewModel(
@@ -17,7 +20,7 @@ class HomeViewModel(
     private val _query: MutableStateFlow<StudentQuery> = MutableStateFlow(StudentQuery())
     val query = _query.asStateFlow()
 
-    val students =
+    val students: Flow<PagingData<StudentMinified>> =
         query.flatMapLatest {
             useCase.getStudents(it)
         }
