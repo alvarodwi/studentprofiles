@@ -24,6 +24,7 @@ dependencies {
 
     // local
     implementation(libs.bundles.androidx.localPersistence)
+    api(libs.androidx.datastore)
     kapt(libs.room.compiler)
 
     // remote

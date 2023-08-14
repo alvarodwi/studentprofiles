@@ -24,6 +24,9 @@
                 android:id="@+id/action_home_to_detail"
                 app:destination="@id/detailFragment" />
             <action
+                android:id="@+id/action_home_to_settings"
+                app:destination="@id/settingsFragment" />
+            <action
                 android:id="@+id/action_home_to_favorite"
                 app:destination="@id/favoriteFragment" />
         </fragment>
@@ -59,5 +62,10 @@
             android:id="@+id/action_favorite_to_detail"
             app:destination="@id/detailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="me.varoa.studentprofiles.screen.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>

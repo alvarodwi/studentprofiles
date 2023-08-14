@@ -124,6 +124,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                         navigateTo(HomeFragmentDirections.actionHomeToFavorite())
                         true
                     }
+                    R.id.action_settings -> {
+                        navigateTo(HomeFragmentDirections.actionHomeToSettings())
+                        true
+                    }
 
                     else -> false
                 }

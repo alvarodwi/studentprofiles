@@ -26,4 +26,8 @@
     <string name="btn_sync">Start Sync</string>
     <string name="title_list_empty">List empty</string>
     <string name="body_list_empty">There are no data to show here, please revise your search or filter query</string>
+    <string name="prefs_theme">App theme</string>
+    <string name="prefs_theme_dark">Dark</string>
+    <string name="prefs_theme_light">Light</string>
+    <string name="prefs_theme_system">Follow system</string>
 </resources>
