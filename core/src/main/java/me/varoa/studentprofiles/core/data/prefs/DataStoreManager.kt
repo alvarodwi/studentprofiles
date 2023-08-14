@@ -16,12 +16,17 @@ class DataStoreManager(
     private val prefsDataStore = appContext.dataStore
 
     // generic
-    suspend fun <T : Any> set(key: Preferences.Key<T>, value: T) {
+    suspend fun <T : Any> set(
+        key: Preferences.Key<T>,
+        value: T,
+    ) {
         prefsDataStore.edit { prefs -> prefs[key] = value }
     }
 
-    fun <T : Any> get(key: Preferences.Key<T>, default: T): Flow<T?> =
-        prefsDataStore.data.map { it[key] ?: default }
+    fun <T : Any> get(
+        key: Preferences.Key<T>,
+        default: T,
+    ): Flow<T?> = prefsDataStore.data.map { it[key] ?: default }
 
     // theme
     val theme

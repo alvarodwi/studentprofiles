@@ -9,7 +9,10 @@ import me.varoa.studentprofiles.core.domain.model.StudentMinified
 
 interface StudentRepository {
     fun getStudents(query: StudentQuery): Flow<PagingData<StudentMinified>>
+
     fun getStudent(id: Int): Flow<Student>
+
     suspend fun insertStudent(vararg student: StudentEntity)
+
     suspend fun deleteAllStudent()
 }

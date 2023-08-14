@@ -16,6 +16,7 @@ enum class School(val key: String, val fullName: String) {
 
     companion object {
         private val MAP: Map<String, School> = School.values().associateBy { it.key }
+
         infix fun from(key: String) = MAP[key] ?: ETC
     }
 }

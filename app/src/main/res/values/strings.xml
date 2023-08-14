@@ -30,4 +30,18 @@
     <string name="prefs_theme_dark">Dark</string>
     <string name="prefs_theme_light">Light</string>
     <string name="prefs_theme_system">Follow system</string>
+    <string name="prefs_category_general">General</string>
+    <string name="prefs_category_sync">Sync</string>
+    <string name="prefs_run_sync">Run sync</string>
+    <string name="prefs_run_sync_summary">Synchronize to reload students data</string>
+    <string name="lbl_ilustrator">Illustrator</string>
+    <string name="lbl_designer">Design</string>
+    <string name="lbl_height">Height</string>
+    <string name="lbl_age">Age</string>
+    <string name="lbl_birthday">Birthday</string>
+    <string name="lbl_character_voice">CV.</string>
+    <string name="lbl_hobbies">Hobbies</string>
+    <string name="lbl_basic_info">Basic Info</string>
+    <string name="lbl_detail_swipe_down">Swipe down to see student\'s profile</string>
+    <string name="lbl_detail_swipe_up">Swipe up to see student\'s basic detail</string>
 </resources>

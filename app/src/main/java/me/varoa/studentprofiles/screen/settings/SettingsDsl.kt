@@ -1,9 +1,9 @@
 package me.varoa.studentprofiles.screen.settings
 
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceGroup
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
+import androidx.preference.PreferenceScreen
 import me.varoa.studentprofiles.screen.settings.dialogs.StringListDialogPreference
 
 @DslMarker
@@ -14,15 +14,22 @@ inline fun PreferenceGroup.preference(block: (@SettingsDsl Preference).() -> Uni
     return initThenAdd(Preference(context), block)
 }
 
-inline fun PreferenceGroup.stringListPreference(
-    block: (@SettingsDsl StringListDialogPreference).() -> Unit
-): StringListDialogPreference {
+inline fun PreferenceGroup.stringListPreference(block: (@SettingsDsl StringListDialogPreference).() -> Unit): StringListDialogPreference {
     return initThenAdd(StringListDialogPreference(context), block)
+}
+
+inline fun PreferenceScreen.preferenceCategory(block: (@SettingsDsl PreferenceCategory).() -> Unit): PreferenceCategory {
+    return addThenInit(
+        PreferenceCategory(context).apply {
+            isIconSpaceReserved = false
+        },
+        block,
+    )
 }
 
 inline fun <P : Preference> PreferenceGroup.initThenAdd(
     p: P,
-    block: P.() -> Unit
+    block: P.() -> Unit,
 ): P {
     return p.apply {
         block()
@@ -31,8 +38,22 @@ inline fun <P : Preference> PreferenceGroup.initThenAdd(
     }
 }
 
+inline fun <P : Preference> PreferenceGroup.addThenInit(
+    p: P,
+    block: P.() -> Unit,
+): P {
+    return p.apply {
+        this.isIconSpaceReserved = false
+        addPreference(this)
+        block()
+    }
+}
+
 inline fun Preference.onClick(crossinline block: () -> Unit) {
-    setOnPreferenceClickListener { block(); true }
+    setOnPreferenceClickListener {
+        block()
+        true
+    }
 }
 
 inline fun Preference.onChange(crossinline block: (Any?) -> Boolean) {

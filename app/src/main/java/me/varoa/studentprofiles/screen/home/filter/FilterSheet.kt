@@ -180,7 +180,6 @@ class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
                     com.google.android.material.R.style.Widget_Material3_Chip_Filter,
                 ),
             )
-            isCheckedIconVisible = false
             isChecked = isChipChecked
             setOnCheckedChangeListener { _, checked ->
                 if (canUncheck) {

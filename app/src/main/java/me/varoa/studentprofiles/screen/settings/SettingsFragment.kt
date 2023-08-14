@@ -17,7 +17,10 @@ import me.varoa.studentprofiles.viewbinding.viewBinding
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private val binding by viewBinding<FragmentSettingsBinding>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
@@ -33,35 +36,54 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     }
 
     class SettingsContainer : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             val screen = preferenceManager.createPreferenceScreen(requireContext())
             preferenceScreen = screen
             setupPreferenceScreen(screen)
         }
 
-        private fun setupPreferenceScreen(screen: PreferenceScreen) = with(screen) {
-            setTitle(R.string.title_settings)
+        private fun setupPreferenceScreen(screen: PreferenceScreen) =
+            with(screen) {
+                setTitle(R.string.title_settings)
 
-            stringListPreference {
-                key = PrefKeys.THEME_KEY.name
-                titleRes = R.string.prefs_theme
-                entriesRes = listOf(
-                    R.string.prefs_theme_light,
-                    R.string.prefs_theme_dark,
-                    R.string.prefs_theme_system,
-                )
-                entryValues = listOf(
-                    AppTheme.LIGHT.name,
-                    AppTheme.DARK.name,
-                    AppTheme.SYSTEM.name
-                )
-                defaultValue = AppTheme.SYSTEM.name
-                onChange {
-                    toggleAppTheme(it as String)
-                    requireActivity().recreate()
-                    true
+                preferenceCategory {
+                    title = getString(R.string.prefs_category_general)
+
+                    stringListPreference {
+                        key = PrefKeys.THEME_KEY.name
+                        titleRes = R.string.prefs_theme
+                        entriesRes =
+                            listOf(
+                                R.string.prefs_theme_light,
+                                R.string.prefs_theme_dark,
+                                R.string.prefs_theme_system,
+                            )
+                        entryValues =
+                            listOf(
+                                AppTheme.LIGHT.name,
+                                AppTheme.DARK.name,
+                                AppTheme.SYSTEM.name,
+                            )
+                        defaultValue = AppTheme.SYSTEM.name
+                        onChange {
+                            toggleAppTheme(it as String)
+                            requireActivity().recreate()
+                            true
+                        }
+                    }
+                }
+
+                preferenceCategory {
+                    title = getString(R.string.prefs_category_sync)
+
+                    preference {
+                        titleRes = R.string.prefs_run_sync
+                        summary = getString(R.string.prefs_run_sync_summary)
+                    }
                 }
             }
-        }
     }
 }

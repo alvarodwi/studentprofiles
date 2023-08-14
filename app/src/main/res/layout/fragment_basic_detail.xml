@@ -57,6 +57,7 @@
                 android:layout_margin="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:tint="?colorOnSurface"
                 tools:src="@drawable/school_gehenna" />
 
             <com.google.android.material.chip.Chip
@@ -83,7 +84,8 @@
                 app:chipIcon="@drawable/role_supporter"
                 app:chipIconSize="12dp"
                 app:chipIconTint="?colorOnSurface"
-                app:chipStrokeColor="@android:color/transparent"
+                app:chipStrokeColor="?colorControlActivated"
+                app:chipStrokeWidth="0.5dp"
                 app:layout_constraintStart_toEndOf="@id/chip_squad_type"
                 app:layout_constraintTop_toBottomOf="@id/tv_name"
                 app:shapeAppearanceOverlay="?shapeAppearanceCornerExtraLarge"
@@ -142,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="Swipe down to see student's profile"
+                android:text="@string/lbl_detail_swipe_down"
                 android:textAppearance="?textAppearanceLabelSmall"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

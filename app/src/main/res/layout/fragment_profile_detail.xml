@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Swipe up to see student's basic detail"
+        android:text="@string/lbl_detail_swipe_up"
         android:textAppearance="?textAppearanceLabelSmall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:text="CV."
+            android:text="@string/lbl_character_voice"
             android:textAppearance="?textAppearanceLabelSmall" />
 
         <TextView
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:text="Birthday"
+            android:text="@string/lbl_birthday"
             android:textAppearance="?textAppearanceLabelSmall" />
 
         <TextView
@@ -135,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:text="Age"
+            android:text="@string/lbl_age"
             android:textAppearance="?textAppearanceLabelSmall" />
 
         <TextView
@@ -153,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:text="Height"
+            android:text="@string/lbl_height"
             android:textAppearance="?textAppearanceLabelSmall" />
 
         <TextView
@@ -171,7 +171,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:text="Design"
+            android:text="@string/lbl_designer"
             android:textAppearance="?textAppearanceLabelSmall" />
 
         <TextView
@@ -189,7 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:text="Illustrator"
+            android:text="@string/lbl_ilustrator"
             android:textAppearance="?textAppearanceLabelSmall" />
 
         <TextView
@@ -205,17 +205,17 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_columnSpan="4"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:text="Hobbies"
+            android:text="@string/lbl_hobbies"
             android:textAppearance="?textAppearanceLabelSmall" />
 
         <TextView
             android:id="@+id/tv_hobbies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_columnSpan="4"
+            android:layout_columnSpan="3"
+            android:textAlignment="textEnd"
             android:layout_gravity="fill_horizontal"
             android:gravity="start"
             android:textStyle="bold"
@@ -234,7 +234,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Basic Info"
+        android:text="@string/lbl_basic_info"
         android:textAppearance="?textAppearanceLabelSmall"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/divider"
@@ -257,7 +257,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginTop="8dp"
-        app:cardBackgroundColor="?colorSurfaceInverse"
+        app:cardBackgroundColor="?colorSurfaceContainer"
         app:layout_constraintTop_toBottomOf="@id/tv_basic_info"
         app:strokeColor="@android:color/transparent">
 
@@ -270,7 +270,7 @@
                 android:id="@+id/tv_weapon_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?colorOnSurfaceInverse"
+                android:textColor="?colorOnSurface"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="SMG" />

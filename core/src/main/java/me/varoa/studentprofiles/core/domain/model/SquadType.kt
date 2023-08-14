@@ -7,6 +7,7 @@ enum class SquadType(val key: String) {
 
     companion object {
         private val MAP: Map<String, SquadType> = SquadType.values().associateBy { it.key }
+
         infix fun from(key: String) = MAP[key] ?: Striker
     }
 }

@@ -8,6 +8,7 @@ enum class DefenseType(val key: String) {
 
     companion object {
         private val MAP: Map<String, DefenseType> = DefenseType.values().associateBy { it.key }
+
         infix fun from(key: String) = MAP[key] ?: Light
     }
 }

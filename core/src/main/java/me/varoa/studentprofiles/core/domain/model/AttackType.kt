@@ -8,6 +8,7 @@ enum class AttackType(val key: String) {
 
     companion object {
         private val MAP: Map<String, AttackType> = AttackType.values().associateBy { it.key }
+
         infix fun from(key: String) = MAP[key] ?: Explosive
     }
 }

@@ -10,6 +10,7 @@ class SortSheetViewModel : ViewModel() {
     data class UiState(
         val sortKey: SortKey = SortKey.Default,
     )
+
     private val _uiState = MutableStateFlow(UiState())
     val uiState = _uiState.asStateFlow()
 

@@ -6,13 +6,15 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_photo"
         android:layout_width="96dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="?shapeAppearanceCornerLarge"
+        tools:layout_height="120dp"
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
@@ -21,20 +23,25 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:maxLines="1"
-        android:textAppearance="?textAppearanceTitleMedium"
+        android:textAppearance="?textAppearanceTitleLarge"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/chip_squad_type"
         app:layout_constraintStart_toEndOf="@id/iv_photo"
         app:layout_constraintTop_toTopOf="@id/iv_photo"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Fuuka (New Year)" />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip_squad_type"
         android:layout_width="wrap_content"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:textAppearance="?textAppearanceLabelSmall"
         android:textColor="@android:color/white"
         app:chipBackgroundColor="@color/brand_type_special"
         app:chipStrokeColor="@android:color/transparent"
+        app:ensureMinTouchTargetSize="false"
+        app:layout_constraintBottom_toBottomOf="@id/iv_photo"
         app:layout_constraintStart_toStartOf="@id/tv_name"
         app:layout_constraintTop_toBottomOf="@id/tv_name"
         app:shapeAppearanceOverlay="?shapeAppearanceCornerExtraLarge"
@@ -43,7 +50,8 @@
     <com.google.android.material.chip.Chip
         android:id="@+id/chip_role"
         android:layout_width="wrap_content"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:textAppearance="?textAppearanceLabelSmall"
         android:textColor="?colorOnSurface"
         app:chipBackgroundColor="?colorSurfaceContainerHighest"
@@ -51,8 +59,9 @@
         app:chipIconSize="12dp"
         app:chipIconTint="?colorOnSurface"
         app:chipStrokeColor="@android:color/transparent"
-        app:layout_constraintStart_toStartOf="@id/chip_squad_type"
-        app:layout_constraintTop_toBottomOf="@id/chip_squad_type"
+        app:ensureMinTouchTargetSize="false"
+        app:layout_constraintStart_toEndOf="@id/chip_squad_type"
+        app:layout_constraintTop_toTopOf="@id/chip_squad_type"
         app:shapeAppearanceOverlay="?shapeAppearanceCornerExtraLarge"
         tools:text="Support" />
 </androidx.constraintlayout.widget.ConstraintLayout>
