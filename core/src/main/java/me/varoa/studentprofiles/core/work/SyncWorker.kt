@@ -1,7 +1,12 @@
 package me.varoa.studentprofiles.core.work
 
 import android.content.Context
+import androidx.work.Constraints
 import androidx.work.CoroutineWorker
+import androidx.work.ExistingWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
 import kotlinx.coroutines.delay
@@ -9,6 +14,7 @@ import kotlinx.serialization.json.Json
 import logcat.logcat
 import me.varoa.studentprofiles.core.data.remote.ApiConfig
 import me.varoa.studentprofiles.core.data.remote.json.StudentJson
+import me.varoa.studentprofiles.core.domain.model.SyncInterval
 import me.varoa.studentprofiles.core.domain.usecase.SyncStudentUseCase
 import me.varoa.studentprofiles.core.util.ImageUtil
 import me.varoa.studentprofiles.core.util.LocalizationUtil
@@ -21,6 +27,10 @@ import okio.buffer
 import okio.sink
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.time.Duration
+import java.util.Calendar
+import java.util.Locale
 
 class SyncWorker(
     appContext: Context,
@@ -29,8 +39,37 @@ class SyncWorker(
     private val client: OkHttpClient,
 ) : CoroutineWorker(appContext, params) {
     companion object {
+        const val TAG = "sync_worker"
         const val PARAM_PROGRESS = "progress"
         const val KEY_MESSAGE = "message"
+
+        fun scheduleNextWork(context: Context, interval: SyncInterval = SyncInterval.WEEKLY) {
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+            val request = OneTimeWorkRequestBuilder<SyncWorker>()
+                .setConstraints(constraints)
+                .setInitialDelay(nextSyncDuration(interval))
+                .build()
+            WorkManager.getInstance(context)
+                .enqueueUniqueWork(TAG, ExistingWorkPolicy.REPLACE, request)
+        }
+
+        private fun nextSyncDuration(interval: SyncInterval): Duration {
+            val calendar = Calendar.getInstance()
+            val nowMillis = calendar.timeInMillis
+            logcat { SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(calendar.time) }
+            when (interval) {
+                SyncInterval.WEEKLY -> calendar.add(Calendar.WEEK_OF_YEAR, 1)
+                SyncInterval.BIWEEKLY -> calendar.add(Calendar.WEEK_OF_YEAR, 2)
+                else -> calendar.add(Calendar.MONTH, 1)
+            }
+            logcat { SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(calendar.time) }
+            val diff = calendar.timeInMillis - nowMillis
+            logcat { diff.toString() }
+
+            return Duration.ofMillis(diff)
+        }
     }
 
     private val json =
@@ -118,6 +157,7 @@ class SyncWorker(
 
             setProgress(workDataOf(PARAM_PROGRESS to "Finalizing sync..."))
             delay(1000L)
+            scheduleNextWork(applicationContext, useCase.getSyncInterval())
             return Result.success(workDataOf(KEY_MESSAGE to "Synced $totalData students data"))
         } catch (ex: IllegalStateException) {
             return Result.failure(workDataOf(KEY_MESSAGE to ex.message))

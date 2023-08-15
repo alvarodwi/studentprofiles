@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val useCaseModule =
     module {
         single<StudentListUseCase> { StudentListInteractor(get()) }
-        single<SyncStudentUseCase> { SyncStudentInteractor(get()) }
+        single<SyncStudentUseCase> { SyncStudentInteractor(get(), get()) }
         single<StudentDetailUseCase> { StudentDetailInteractor(get(), get()) }
         single<FavoriteListUseCase> { FavoriteListInteractor(get()) }
     }

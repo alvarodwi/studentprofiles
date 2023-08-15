@@ -6,4 +6,5 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 object PrefKeys {
     val THEME_KEY = stringPreferencesKey("theme")
     val FIRST_TIME_SYNC = booleanPreferencesKey("first_time_sync")
+    val SYNC_INTERVAL = stringPreferencesKey("sync_interval")
 }

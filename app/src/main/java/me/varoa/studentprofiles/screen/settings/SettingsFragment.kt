@@ -7,12 +7,15 @@ import androidx.fragment.app.commit
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceScreen
+import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
+import logcat.logcat
 import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.core.data.prefs.PrefKeys
 import me.varoa.studentprofiles.core.domain.model.AppTheme
+import me.varoa.studentprofiles.core.domain.model.SyncInterval
 import me.varoa.studentprofiles.core.work.SyncWorker
 import me.varoa.studentprofiles.databinding.FragmentSettingsBinding
 import me.varoa.studentprofiles.ext.snackbar
@@ -91,6 +94,28 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                             runSync()
                         }
                     }
+
+                    stringListPreference {
+                        key = PrefKeys.SYNC_INTERVAL.name
+                        titleRes = R.string.prefs_sync_interval
+                        entriesRes =
+                            listOf(
+                                R.string.prefs_sync_interval_1_week,
+                                R.string.prefs_sync_interval_2_week,
+                                R.string.prefs_sync_interval_1_month,
+                            )
+                        entryValues =
+                            listOf(
+                                SyncInterval.WEEKLY.name,
+                                SyncInterval.BIWEEKLY.name,
+                                SyncInterval.MONTHLY.name,
+                            )
+                        defaultValue = SyncInterval.WEEKLY.name
+                        onChange {
+                            rescheduleSync(it as String)
+                            true
+                        }
+                    }
                 }
             }
 
@@ -112,6 +137,10 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                         snackbar(getString(R.string.info_sync_failed, message))
                     }
                 }
+        }
+
+        private fun rescheduleSync(str: String) {
+            SyncWorker.scheduleNextWork(requireContext(), SyncInterval.valueOf(str))
         }
     }
 }

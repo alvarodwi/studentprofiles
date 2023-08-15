@@ -7,6 +7,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import me.varoa.studentprofiles.core.domain.model.AppTheme
+import me.varoa.studentprofiles.core.domain.model.SyncInterval
 
 private val Context.dataStore by preferencesDataStore("prefs")
 
@@ -32,7 +33,7 @@ class DataStoreManager(
     val theme
         get() =
             prefsDataStore.data.map { prefs ->
-                prefs[PrefKeys.THEME_KEY] ?: AppTheme.DARK.name
+                prefs[PrefKeys.THEME_KEY] ?: AppTheme.SYSTEM.name
             }
 
     suspend fun setTheme(theme: AppTheme) {
@@ -44,6 +45,12 @@ class DataStoreManager(
         get() =
             prefsDataStore.data.map { prefs ->
                 prefs[PrefKeys.FIRST_TIME_SYNC] ?: true
+            }
+
+    val syncInterval
+        get() =
+            prefsDataStore.data.map { prefs ->
+                prefs[PrefKeys.SYNC_INTERVAL] ?: SyncInterval.WEEKLY.name
             }
 
     suspend fun finishFirstTimeSync() {

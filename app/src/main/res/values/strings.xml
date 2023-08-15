@@ -34,7 +34,7 @@
     <string name="prefs_theme_system">Follow system</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_sync">Sync</string>
-    <string name="prefs_run_sync">Run sync</string>
+    <string name="prefs_run_sync">Run sync now</string>
     <string name="prefs_run_sync_summary">Synchronize to reload students data</string>
     <string name="lbl_illustrator">Illustrator</string>
     <string name="lbl_designer">Design</string>
@@ -47,4 +47,8 @@
     <string name="lbl_detail_swipe_down">Swipe down to see student\'s profile</string>
     <string name="lbl_detail_swipe_up">Swipe up to see student\'s basic detail</string>
     <string name="info_sync_failed">Sync failed : %s</string>
+    <string name="prefs_sync_interval">Sync interval</string>
+    <string name="prefs_sync_interval_1_week">Every week</string>
+    <string name="prefs_sync_interval_2_week">Every 2 weeks</string>
+    <string name="prefs_sync_interval_1_month">Every month</string>
 </resources>
