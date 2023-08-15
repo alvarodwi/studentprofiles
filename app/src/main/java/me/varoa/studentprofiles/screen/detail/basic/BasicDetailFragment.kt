@@ -14,9 +14,10 @@ import me.varoa.studentprofiles.core.domain.model.AttackType
 import me.varoa.studentprofiles.core.domain.model.DefenseType
 import me.varoa.studentprofiles.core.domain.model.SquadType
 import me.varoa.studentprofiles.core.domain.model.Student
+import me.varoa.studentprofiles.core.domain.model.StudentImageType
 import me.varoa.studentprofiles.core.domain.model.TacticRole
-import me.varoa.studentprofiles.core.util.ImageUtil
 import me.varoa.studentprofiles.databinding.FragmentBasicDetailBinding
+import me.varoa.studentprofiles.ext.getImage
 import me.varoa.studentprofiles.screen.detail.DetailViewModel
 import me.varoa.studentprofiles.utils.BlurTransformation
 import me.varoa.studentprofiles.viewbinding.viewBinding
@@ -35,12 +36,13 @@ class BasicDetailFragment : BaseFragment(R.layout.fragment_basic_detail) {
     @SuppressLint("DiscouragedApi")
     private fun loadStudent(data: Student) {
         logcat { data.toString() }
+
         with(binding) {
             tvName.text = data.name
             ivBackground.apply {
                 val imgData =
                     ImageRequest.Builder(requireContext())
-                        .data(ImageUtil.generateBackgroundImageUrl(data.profile.bgImgPath))
+                        .data(data.getImage(requireContext(), StudentImageType.BG))
                         .target(this)
                         .transformations(
                             listOf(
@@ -56,7 +58,7 @@ class BasicDetailFragment : BaseFragment(R.layout.fragment_basic_detail) {
             ivPortrait.apply {
                 val imgData =
                     ImageRequest.Builder(requireContext())
-                        .data(ImageUtil.generatePortraitImageUrl(data.profile.devName))
+                        .data(data.getImage(requireContext(), StudentImageType.PORTRAIT))
                         .target(this)
                         .allowHardware(true).build()
                 imageLoader.enqueue(imgData)

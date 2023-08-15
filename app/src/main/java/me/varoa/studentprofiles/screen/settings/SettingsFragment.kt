@@ -7,10 +7,15 @@ import androidx.fragment.app.commit
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceScreen
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.core.data.prefs.PrefKeys
 import me.varoa.studentprofiles.core.domain.model.AppTheme
+import me.varoa.studentprofiles.core.work.SyncWorker
 import me.varoa.studentprofiles.databinding.FragmentSettingsBinding
+import me.varoa.studentprofiles.ext.toast
 import me.varoa.studentprofiles.ext.toggleAppTheme
 import me.varoa.studentprofiles.viewbinding.viewBinding
 
@@ -82,8 +87,27 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                     preference {
                         titleRes = R.string.prefs_run_sync
                         summary = getString(R.string.prefs_run_sync_summary)
+                        onClick {
+                            runSync()
+                        }
                     }
                 }
             }
+
+        private fun runSync() {
+            // init work
+            val syncRequest =
+                OneTimeWorkRequestBuilder<SyncWorker>()
+                    .build()
+            val workManager = WorkManager.getInstance(requireContext())
+            workManager.enqueue(syncRequest)
+            // observe when done
+            workManager.getWorkInfoByIdLiveData(syncRequest.id)
+                .observe(viewLifecycleOwner) { workInfo ->
+                    if (workInfo?.state == WorkInfo.State.SUCCEEDED) {
+                        toast(getString(R.string.snackbar_sync_completed))
+                    }
+                }
+        }
     }
 }

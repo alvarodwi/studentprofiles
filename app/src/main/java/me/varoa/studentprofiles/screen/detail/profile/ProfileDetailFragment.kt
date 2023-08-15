@@ -8,9 +8,10 @@ import kotlinx.coroutines.launch
 import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.base.BaseFragment
 import me.varoa.studentprofiles.core.domain.model.Student
-import me.varoa.studentprofiles.core.util.ImageUtil
+import me.varoa.studentprofiles.core.domain.model.StudentImageType
 import me.varoa.studentprofiles.databinding.FragmentProfileDetailBinding
 import me.varoa.studentprofiles.ext.decodeHtml
+import me.varoa.studentprofiles.ext.getImage
 import me.varoa.studentprofiles.screen.detail.DetailViewModel
 import me.varoa.studentprofiles.viewbinding.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,7 +31,7 @@ class ProfileDetailFragment : BaseFragment(R.layout.fragment_profile_detail) {
             ivPhoto.apply {
                 val imgData =
                     ImageRequest.Builder(requireContext())
-                        .data(ImageUtil.generateCollectionImageUrl(data.imgPath))
+                        .data(data.getImage(requireContext(), StudentImageType.COLLECTION))
                         .target(this)
                         .allowHardware(true).build()
                 imageLoader.enqueue(imgData)
@@ -56,7 +57,7 @@ class ProfileDetailFragment : BaseFragment(R.layout.fragment_profile_detail) {
             ivWeapon.apply {
                 val imgData =
                     ImageRequest.Builder(requireContext())
-                        .data(ImageUtil.generateWeaponImageUrl(data.profile.weaponImgPath))
+                        .data(data.getImage(requireContext(), StudentImageType.WEAPON))
                         .target(this)
                         .allowHardware(true).build()
                 imageLoader.enqueue(imgData)

@@ -10,8 +10,8 @@ import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.core.domain.model.SquadType
 import me.varoa.studentprofiles.core.domain.model.StudentMinified
 import me.varoa.studentprofiles.core.domain.model.TacticRole
-import me.varoa.studentprofiles.core.util.ImageUtil
 import me.varoa.studentprofiles.databinding.ItemStudentBinding
+import me.varoa.studentprofiles.ext.getImage
 import me.varoa.studentprofiles.screen.home.HomeAdapter.StudentItemViewHolder
 import me.varoa.studentprofiles.utils.STUDENT_COMPARATOR
 import me.varoa.studentprofiles.viewbinding.viewBinding
@@ -30,7 +30,7 @@ class HomeAdapter(
                 ivPhoto.apply {
                     val imgData =
                         ImageRequest.Builder(context)
-                            .data(ImageUtil.generateCollectionImageUrl(data.imgPath))
+                            .data(data.getImage(context))
                             .target(this)
                             .allowHardware(true).build()
                     imageLoader.enqueue(imgData)

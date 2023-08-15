@@ -43,10 +43,10 @@ class DataStoreManager(
     val firstTimeSync
         get() =
             prefsDataStore.data.map { prefs ->
-                prefs[PrefKeys.FIRST_TIME_SYNC] ?: false
+                prefs[PrefKeys.FIRST_TIME_SYNC] ?: true
             }
 
     suspend fun finishFirstTimeSync() {
-        prefsDataStore.edit { prefs -> prefs[PrefKeys.FIRST_TIME_SYNC] = true }
+        prefsDataStore.edit { prefs -> prefs[PrefKeys.FIRST_TIME_SYNC] = false }
     }
 }
