@@ -3,6 +3,8 @@ package me.varoa.studentprofiles.core.work
 import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import androidx.work.workDataOf
+import kotlinx.coroutines.delay
 import kotlinx.serialization.json.Json
 import logcat.logcat
 import me.varoa.studentprofiles.core.data.remote.ApiConfig
@@ -26,6 +28,11 @@ class SyncWorker(
     private val useCase: SyncStudentUseCase,
     private val client: OkHttpClient,
 ) : CoroutineWorker(appContext, params) {
+    companion object {
+        const val PARAM_PROGRESS = "progress"
+        const val KEY_MESSAGE = "message"
+    }
+
     private val json =
         Json {
             ignoreUnknownKeys = true
@@ -35,7 +42,7 @@ class SyncWorker(
     override suspend fun doWork(): Result {
         try {
             // download json file
-            logcat("SyncWorker") { "Download json file" }
+            setProgress(workDataOf(PARAM_PROGRESS to "Fetching students data..."))
             val request =
                 Request.Builder()
                     .url(ApiConfig.STUDENT_JSON_URL)
@@ -46,25 +53,26 @@ class SyncWorker(
                 response = client.newCall(request).execute()
             } catch (e: IOException) {
                 logcat { "Error while fetching students data : " + e.message }
-                return Result.failure()
+                throw e
             }
             val jsonData = checkNotNull(response.body?.string()) { "JsonData is null" }
             val students = json.decodeFromString<List<StudentJson>>(jsonData)
-            logcat("SyncWorker") { "Preview of one student : ${students[0]}" }
+            val totalData = students.size
 
             // save json data into database
-            logcat("SyncWorker") { "Save json data into database" }
+            setProgress(workDataOf(PARAM_PROGRESS to "Saving data into the database..."))
             useCase.deleteAllStudent()
             students.map { it.asEntity() }.forEach { entity ->
                 useCase.insertStudent(entity)
             }
-
-            // try to download students images
+            // preparing image folders
             val portraitDir = getDirectory("portrait")
             val collectionDir = getDirectory("collection")
             val bgDir = getDirectory("bg")
             val weaponDir = getDirectory("weapon")
-            students.forEach { student ->
+            // try to download students images
+            students.forEachIndexed { index, student ->
+                setProgress(workDataOf(PARAM_PROGRESS to "Downloading student's image... (${index + 1}/$totalData)"))
                 // download portraitImage
                 with(student.devName) {
                     val file = File(portraitDir, "portrait_${student.id}.webp")
@@ -97,6 +105,7 @@ class SyncWorker(
                 }
             }
             // download bgImgPath
+            setProgress(workDataOf(PARAM_PROGRESS to "Downloading student's background image..."))
             students.map { it.bgImgPath }.distinct().forEach { bgPath ->
                 val file = File(bgDir, "$bgPath.jpg")
                 if (!file.exists()) {
@@ -107,10 +116,13 @@ class SyncWorker(
                 }
             }
 
-            return Result.success()
-        } catch (e: IllegalStateException) {
-            logcat { "IllegalState : " + e.message }
-            return Result.failure()
+            setProgress(workDataOf(PARAM_PROGRESS to "Finalizing sync..."))
+            delay(1000L)
+            return Result.success(workDataOf(KEY_MESSAGE to "Synced $totalData students data"))
+        } catch (ex: IllegalStateException) {
+            return Result.failure(workDataOf(KEY_MESSAGE to ex.message))
+        } catch (ex: IOException) {
+            return Result.failure(workDataOf(KEY_MESSAGE to ex.message))
         }
     }
 

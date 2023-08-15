@@ -189,7 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:text="@string/lbl_ilustrator"
+            android:text="@string/lbl_illustrator"
             android:textAppearance="?textAppearanceLabelSmall" />
 
         <TextView

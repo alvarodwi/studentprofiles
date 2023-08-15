@@ -5,9 +5,11 @@
     <string name="menu_filter">Filter</string>
     <string name="hint_search_bar">Search students</string>
     <string name="hint_search_view">Search by name</string>
-    <string name="subtitle_no_sync_yet">Looks like you haven\'t synced the students data yet. Please click the button below to start syncing.</string>
-    <string name="title_no_sync_yet">Database empty</string>
-    <string name="snackbar_sync_completed">Syncing student data complete</string>
+    <string name="subtitle_welcome">Before you start viewing students profile, you need to synchronize the data. Please click the button below to start syncing students data from SchaleDB.</string>
+    <string name="title_welcome">Welcome to Student Profile</string>
+    <string name="subtitle_sync_progress">Please wait until sync is finished.</string>
+    <string name="title_sync_progress">Syncing data</string>
+    <string name="info_sync_completed">Syncing student data complete</string>
     <string name="title_search">Search</string>
     <string name="title_sort_by">Sort by</string>
     <string name="title_filter">Filter</string>
@@ -34,7 +36,7 @@
     <string name="prefs_category_sync">Sync</string>
     <string name="prefs_run_sync">Run sync</string>
     <string name="prefs_run_sync_summary">Synchronize to reload students data</string>
-    <string name="lbl_ilustrator">Illustrator</string>
+    <string name="lbl_illustrator">Illustrator</string>
     <string name="lbl_designer">Design</string>
     <string name="lbl_height">Height</string>
     <string name="lbl_age">Age</string>
@@ -44,4 +46,5 @@
     <string name="lbl_basic_info">Basic Info</string>
     <string name="lbl_detail_swipe_down">Swipe down to see student\'s profile</string>
     <string name="lbl_detail_swipe_up">Swipe up to see student\'s basic detail</string>
+    <string name="info_sync_failed">Sync failed : %s</string>
 </resources>

@@ -15,7 +15,7 @@ import me.varoa.studentprofiles.core.data.prefs.PrefKeys
 import me.varoa.studentprofiles.core.domain.model.AppTheme
 import me.varoa.studentprofiles.core.work.SyncWorker
 import me.varoa.studentprofiles.databinding.FragmentSettingsBinding
-import me.varoa.studentprofiles.ext.toast
+import me.varoa.studentprofiles.ext.snackbar
 import me.varoa.studentprofiles.ext.toggleAppTheme
 import me.varoa.studentprofiles.viewbinding.viewBinding
 
@@ -105,7 +105,11 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
             workManager.getWorkInfoByIdLiveData(syncRequest.id)
                 .observe(viewLifecycleOwner) { workInfo ->
                     if (workInfo?.state == WorkInfo.State.SUCCEEDED) {
-                        toast(getString(R.string.snackbar_sync_completed))
+                        val message = workInfo.outputData.getString(SyncWorker.KEY_MESSAGE)
+                        message?.let { snackbar(it) }
+                    } else if (workInfo?.state == WorkInfo.State.FAILED) {
+                        val message = workInfo.outputData.getString(SyncWorker.KEY_MESSAGE)
+                        snackbar(getString(R.string.info_sync_failed, message))
                     }
                 }
         }
