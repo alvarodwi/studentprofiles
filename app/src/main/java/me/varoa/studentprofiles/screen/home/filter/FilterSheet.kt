@@ -93,6 +93,7 @@ class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
                 enumValues<SquadType>().forEach {
                     this.addView(
                         createChip(it, it.name, currentState.filterKey.squadType == it) { type, checked ->
+                            viewModel.updateCanReset(true)
                             homeViewModel.updateFilter(currentState.filterKey.copy(squadType = if (checked) type else null))
                         },
                     )
@@ -103,6 +104,7 @@ class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
                 enumValues<StudentPosition>().forEach {
                     this.addView(
                         createChip(it, it.name, currentState.filterKey.position == it) { position, checked ->
+                            viewModel.updateCanReset(true)
                             homeViewModel.updateFilter(currentState.filterKey.copy(position = if (checked) position else null))
                         },
                     )
@@ -113,6 +115,7 @@ class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
                 enumValues<TacticRole>().forEach {
                     this.addView(
                         createChip(it, it.name, currentState.filterKey.tacticRole == it) { tacticRole, checked ->
+                            viewModel.updateCanReset(true)
                             homeViewModel.updateFilter(currentState.filterKey.copy(tacticRole = if (checked) tacticRole else null))
                         },
                     )
@@ -123,6 +126,7 @@ class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
                 enumValues<AttackType>().forEach {
                     this.addView(
                         createChip(it, it.name, currentState.filterKey.attackType == it) { attackType, checked ->
+                            viewModel.updateCanReset(true)
                             homeViewModel.updateFilter(currentState.filterKey.copy(attackType = if (checked) attackType else null))
                         },
                     )
@@ -133,6 +137,7 @@ class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
                 enumValues<DefenseType>().forEach {
                     this.addView(
                         createChip(it, it.name, currentState.filterKey.defenseType == it) { defenseType, checked ->
+                            viewModel.updateCanReset(true)
                             homeViewModel.updateFilter(currentState.filterKey.copy(defenseType = if (checked) defenseType else null))
                         },
                     )
@@ -143,6 +148,7 @@ class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
                 enumValues<WeaponType>().forEach {
                     this.addView(
                         createChip(it, it.name, currentState.filterKey.weaponType == it) { weaponType, checked ->
+                            viewModel.updateCanReset(true)
                             homeViewModel.updateFilter(currentState.filterKey.copy(weaponType = if (checked) weaponType else null))
                         },
                     )
@@ -153,6 +159,7 @@ class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
                 enumValues<School>().forEach {
                     this.addView(
                         createChip(it, it.key, currentState.filterKey.school == it) { school, checked ->
+                            viewModel.updateCanReset(true)
                             homeViewModel.updateFilter(currentState.filterKey.copy(school = if (checked) school else null))
                         },
                     )
@@ -186,7 +193,6 @@ class FilterSheet : BottomSheetDialogFragment(R.layout.sheet_filter) {
                     isChecked = checked
                 }
                 onClick(data, checked)
-                viewModel.updateCanReset(true)
             }
         }
         return chip

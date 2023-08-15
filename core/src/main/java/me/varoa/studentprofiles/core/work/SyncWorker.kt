@@ -43,14 +43,19 @@ class SyncWorker(
         const val PARAM_PROGRESS = "progress"
         const val KEY_MESSAGE = "message"
 
-        fun scheduleNextWork(context: Context, interval: SyncInterval = SyncInterval.WEEKLY) {
-            val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build()
-            val request = OneTimeWorkRequestBuilder<SyncWorker>()
-                .setConstraints(constraints)
-                .setInitialDelay(nextSyncDuration(interval))
-                .build()
+        fun scheduleNextWork(
+            context: Context,
+            interval: SyncInterval = SyncInterval.WEEKLY,
+        ) {
+            val constraints =
+                Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build()
+            val request =
+                OneTimeWorkRequestBuilder<SyncWorker>()
+                    .setConstraints(constraints)
+                    .setInitialDelay(nextSyncDuration(interval))
+                    .build()
             WorkManager.getInstance(context)
                 .enqueueUniqueWork(TAG, ExistingWorkPolicy.REPLACE, request)
         }

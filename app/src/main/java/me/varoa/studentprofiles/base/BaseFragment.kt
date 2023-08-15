@@ -6,7 +6,6 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDirections
-import androidx.navigation.Navigator
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import coil.ImageLoader
@@ -32,12 +31,5 @@ abstract class BaseFragment(
 
     protected fun navigateTo(directions: NavDirections) {
         findNavController().navigate(directions)
-    }
-
-    protected fun navigateTo(
-        directions: NavDirections,
-        extras: Navigator.Extras,
-    ) {
-        findNavController().navigate(directions, extras)
     }
 }

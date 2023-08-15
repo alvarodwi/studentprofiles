@@ -51,4 +51,6 @@
     <string name="prefs_sync_interval_1_week">Every week</string>
     <string name="prefs_sync_interval_2_week">Every 2 weeks</string>
     <string name="prefs_sync_interval_1_month">Every month</string>
+    <string name="info_list_unfiltered">Showing all students</string>
+    <string name="info_list_filtered">Showing filtered students</string>
 </resources>

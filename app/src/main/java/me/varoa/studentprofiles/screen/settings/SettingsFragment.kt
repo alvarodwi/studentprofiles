@@ -7,11 +7,9 @@ import androidx.fragment.app.commit
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceScreen
-import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
-import logcat.logcat
 import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.core.data.prefs.PrefKeys
 import me.varoa.studentprofiles.core.domain.model.AppTheme

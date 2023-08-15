@@ -44,7 +44,6 @@ dependencies {
     // ui
     implementation(libs.google.material)
     implementation(libs.androidx.constraintLayout)
-    implementation(libs.androidx.swipeRefreshLayout)
     implementation(libs.androidx.viewpager2)
     implementation(libs.androidx.preference)
 

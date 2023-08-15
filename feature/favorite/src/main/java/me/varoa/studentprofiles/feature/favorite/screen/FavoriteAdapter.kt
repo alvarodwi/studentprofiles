@@ -7,12 +7,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.request.ImageRequest
-import logcat.logcat
 import me.varoa.studentprofiles.R
 import me.varoa.studentprofiles.core.domain.model.SquadType
 import me.varoa.studentprofiles.core.domain.model.StudentMinified
 import me.varoa.studentprofiles.core.domain.model.TacticRole
-import me.varoa.studentprofiles.core.util.ImageUtil
+import me.varoa.studentprofiles.ext.getImage
 import me.varoa.studentprofiles.feature.favorite.databinding.ItemFavoriteBinding
 import me.varoa.studentprofiles.feature.favorite.screen.FavoriteAdapter.FavoriteItemViewHolder
 import me.varoa.studentprofiles.utils.STUDENT_COMPARATOR
@@ -24,7 +23,6 @@ class FavoriteAdapter(
 ) : PagingDataAdapter<StudentMinified, FavoriteItemViewHolder>(STUDENT_COMPARATOR) {
     inner class FavoriteItemViewHolder(private val binding: ItemFavoriteBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: StudentMinified?) {
-            logcat { "bind($data)" }
             if (data == null) return
             val context = binding.root.context
             with(binding) {
@@ -33,7 +31,7 @@ class FavoriteAdapter(
                 ivPhoto.apply {
                     val imgData =
                         ImageRequest.Builder(context)
-                            .data(ImageUtil.generateCollectionImageUrl(data.imgPath))
+                            .data(data.getImage(context))
                             .target(this)
                             .allowHardware(true).build()
                     imageLoader.enqueue(imgData)

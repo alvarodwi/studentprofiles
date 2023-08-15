@@ -50,4 +50,13 @@ data class FilterKey(
             generateFilterQuery()
         }.toString()
     }
+
+    fun isUnfiltered(): Boolean =
+        squadType == null &&
+            tacticRole == null &&
+            attackType == null &&
+            defenseType == null &&
+            weaponType == null &&
+            position == null &&
+            school == null
 }

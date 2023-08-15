@@ -26,7 +26,6 @@ androidx-navigation-testing = { module = "androidx.navigation:navigation-testing
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidxNavigation" }
 androidx-paging = "androidx.paging:paging-runtime-ktx:3.2.0"
 androidx-preference = "androidx.preference:preference-ktx:1.2.1"
-androidx-swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 androidx-test-core = "androidx.test:core:1.5.0"
 androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 androidx-test-ext = "androidx.test.ext:junit-ktx:1.1.5"

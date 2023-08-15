@@ -124,6 +124,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                         navigateTo(HomeFragmentDirections.actionHomeToFavorite())
                         true
                     }
+
                     R.id.action_settings -> {
                         navigateTo(HomeFragmentDirections.actionHomeToSettings())
                         true
@@ -144,6 +145,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.query.collectLatest { query ->
                 with(binding.layoutHome) {
+                    tvListInfo.text =
+                        if (query.filter.isUnfiltered()) {
+                            getString(R.string.info_list_unfiltered)
+                        } else {
+                            getString(R.string.info_list_filtered)
+                        }
                     btnSort.text = query.sort.name
                     btnSortDirection.setIconResource(
                         when (query.sortDirection) {
