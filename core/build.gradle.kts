@@ -8,13 +8,19 @@ android {
     namespace = "me.varoa.studentprofiles.core"
 
     defaultConfig {
-        javaCompileOptions {
-            annotationProcessorOptions {
-                compilerArgumentProviders(
-                    RoomSchemaArgProvider(File(project.rootDir, "schemas"))
-                )
-            }
+        testInstrumentationRunner  = "androidx.test.runner.AndroidJUnitRunner"
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
+    }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
+
+    packaging {
+        resources.excludes.add("META-INF/*")
     }
 }
 
@@ -26,7 +32,7 @@ dependencies {
     implementation(libs.bundles.androidx.localPersistence)
     implementation(libs.okio)
     api(libs.androidx.datastore)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
 
     // remote
     implementation(libs.bundles.networking)
@@ -40,19 +46,10 @@ dependencies {
     api(libs.logcat)
 
     // unit test
-    api(libs.espresso.idlingResource)
+    androidTestImplementation(libs.bundles.uiTest)
     testImplementation(libs.bundles.unitTest)
-}
 
-class RoomSchemaArgProvider(
-    @get:InputDirectory
-    @get:PathSensitive(PathSensitivity.RELATIVE)
-    val schemaDir: File
-) : CommandLineArgumentProvider {
-
-    override fun asArguments(): Iterable<String> {
-        // Note: If you're using KSP, change the line below to return
-        // listOf("room.schemaLocation=${schemaDir.path}").
-        return listOf("-Aroom.schemaLocation=${schemaDir.path}")
-    }
+    // testing database
+    androidTestImplementation(libs.turbine)
+    testImplementation(libs.room.testing)
 }
