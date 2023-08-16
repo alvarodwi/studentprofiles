@@ -19,9 +19,7 @@ class FilterSheetViewModel : ViewModel() {
         _uiState.update { it.copy(filterKey = filterKey, canReset = !filterKey.isUnfiltered()) }
     }
 
-    fun updateCanReset(flag: Boolean) {
-        _uiState.update { it.copy(canReset = flag) }
-    }
+    fun getCurrentFilter() = uiState.value.filterKey
 
     fun reset() {
         _uiState.update { it.copy(filterKey = FilterKey(), canReset = false) }

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.update
+import logcat.logcat
 import me.varoa.studentprofiles.core.data.local.query.FilterKey
 import me.varoa.studentprofiles.core.data.local.query.SortDirectionKey
 import me.varoa.studentprofiles.core.data.local.query.SortKey
@@ -43,6 +44,7 @@ class HomeViewModel(
     }
 
     fun updateFilter(filter: FilterKey) {
+        logcat { "updateFilter($filter)" }
         _query.update { it.copy(filter = filter) }
     }
 }
