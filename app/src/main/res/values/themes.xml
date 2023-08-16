@@ -30,7 +30,7 @@
     </style>
 
     <style name="Theme.StudentProfiles" parent="Base.Theme.StudentProfiles">
-        <item name="fontFamily">@font/noto_sans</item>
+        <item name="fontFamily">@font/gyeonggi</item>
         <item name="searchViewStyle">@style/StudentProfiles.SearchView</item>
     </style>
 </resources>

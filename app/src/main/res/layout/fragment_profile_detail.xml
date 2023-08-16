@@ -17,71 +17,94 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_photo"
-        android:layout_width="144dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lbl_swipe_up"
-        app:shapeAppearanceOverlay="?shapeAppearanceCornerLarge"
-        tools:src="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/tv_full_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:textAppearance="?textAppearanceTitleMedium"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/iv_photo"
-        app:layout_constraintTop_toTopOf="@id/iv_photo"
-        tools:text="Aikiyo Fuuka" />
-
-    <TextView
-        android:id="@+id/tv_school"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textAppearance="?textAppearanceBodySmall"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tv_full_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_full_name"
-        tools:text="Gehenna Academy" />
-
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_student_year"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        app:cardBackgroundColor="?colorTertiaryContainer"
-        app:layout_constraintStart_toStartOf="@id/tv_full_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_school"
-        app:strokeColor="@android:color/transparent">
-
-        <TextView
-            android:id="@+id/tv_school_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingHorizontal="8dp"
-            android:textAppearance="?textAppearanceLabelMedium"
-            android:textColor="?colorOnTertiaryContainer"
-            tools:text="2nd Year" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:id="@+id/tv_club"
-        android:layout_width="wrap_content"
+        android:id="@+id/layout_avatar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textAppearance="?textAppearanceBodySmall"
-        app:layout_constraintStart_toStartOf="@id/tv_full_name"
-        app:layout_constraintTop_toBottomOf="@id/card_student_year"
-        tools:text="School Lunch Club" />
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="?colorTertiary"
+        app:layout_constraintTop_toBottomOf="@id/lbl_swipe_up">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_photo"
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="?shapeAppearanceCornerLarge"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_full_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textAppearance="?textAppearanceTitleMedium"
+                android:textColor="?colorOnTertiary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tv_school"
+                app:layout_constraintStart_toEndOf="@id/iv_photo"
+                app:layout_constraintTop_toTopOf="@id/iv_photo"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Aikiyo Fuuka" />
+
+            <TextView
+                android:id="@+id/tv_school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="?textAppearanceBodySmall"
+                android:textColor="?colorOnTertiary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/card_student_year"
+                app:layout_constraintStart_toStartOf="@id/tv_full_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_full_name"
+                tools:text="Gehenna Academy" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_student_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:cardBackgroundColor="?colorPrimaryContainer"
+                app:layout_constraintBottom_toTopOf="@id/tv_club"
+                app:layout_constraintStart_toStartOf="@id/tv_full_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_school"
+                app:strokeColor="@android:color/transparent">
+
+                <TextView
+                    android:id="@+id/tv_school_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingHorizontal="8dp"
+                    android:textAppearance="?textAppearanceLabelMedium"
+                    android:textColor="?colorOnPrimaryContainer"
+                    tools:text="2nd Year" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tv_club"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="?textAppearanceBodySmall"
+                android:textColor="?colorOnTertiary"
+                app:layout_constraintBottom_toBottomOf="@id/iv_photo"
+                app:layout_constraintStart_toStartOf="@id/tv_full_name"
+                app:layout_constraintTop_toBottomOf="@id/card_student_year"
+                tools:text="School Lunch Club" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <GridLayout
         android:id="@+id/layout_info"
@@ -92,7 +115,7 @@
         android:columnCount="4"
         android:rowOrderPreserved="false"
         android:useDefaultMargins="true"
-        app:layout_constraintTop_toBottomOf="@id/iv_photo">
+        app:layout_constraintTop_toBottomOf="@id/layout_avatar">
 
         <TextView
             android:layout_width="0dp"
@@ -215,9 +238,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnSpan="3"
-            android:textAlignment="textEnd"
             android:layout_gravity="fill_horizontal"
             android:gravity="start"
+            android:textAlignment="textEnd"
             android:textStyle="bold"
             tools:text="Making home-cooked meals, packing bento lunches" />
     </GridLayout>
@@ -257,7 +280,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginTop="8dp"
-        app:cardBackgroundColor="?colorSurfaceContainer"
+        app:cardBackgroundColor="?colorSurfaceContainerHighest"
         app:layout_constraintTop_toBottomOf="@id/tv_basic_info"
         app:strokeColor="@android:color/transparent">
 
