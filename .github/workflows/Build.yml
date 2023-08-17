@@ -11,55 +11,55 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Validate Gradle Wrapper
-      uses: gradle/wrapper-validation-action@v1
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
 
-    - name: Copy CI gradle.properties
-      run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'zulu'
-        java-version: 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 17
 
-    - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
-    - name: Make gradlew executable
-      run: chmod +x ./gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-    - name: Check lint
-      run: ./gradlew lint
+      - name: Check lint
+        run: ./gradlew lint
 
-    - name: Build all build type and flavor permutations
-      run: ./gradlew assemble
+      - name: Build all build type and flavor permutations
+        run: ./gradlew assemble
 
-    - name: Run local tests
-      run: ./gradlew test
+      - name: Run local tests
+        run: ./gradlew test
 
-    - name: Upload build outputs (APKs)
-      uses: actions/upload-artifact@v3
-      with:
-        name: APKs
-        path: '**/build/outputs/apk/**/*.apk'
+      - name: Upload build outputs (APKs)
+        uses: actions/upload-artifact@v3
+        with:
+          name: APKs
+          path: '**/build/outputs/apk/**/*.apk'
 
-    - name: Upload lint reports (HTML)
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: lint-reports
-        path: '**/build/reports/lint-results-*.html'
+      - name: Upload lint reports (HTML)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint-reports
+          path: '**/build/reports/lint-results-*.html'
 
-    - name: Upload test results (XML)
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-results
-        path: '**/build/test-results/test*UnitTest/**.xml'
+      - name: Upload test results (XML)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: '**/build/test-results/test*UnitTest/**.xml'
 
   androidTest:
     needs: build
@@ -67,7 +67,7 @@ jobs:
     timeout-minutes: 55
     strategy:
       matrix:
-        api-level: [26, 33]
+        api-level: [ 26, 33 ]
 
     steps:
       - name: Checkout
@@ -84,6 +84,9 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: Build AndroidTest apps
         run: ./gradlew packageDebug packageDebugAndroidTest --daemon
