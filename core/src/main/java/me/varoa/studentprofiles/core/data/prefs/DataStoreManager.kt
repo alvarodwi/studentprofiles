@@ -36,10 +36,6 @@ class DataStoreManager(
                 prefs[PrefKeys.THEME_KEY] ?: AppTheme.SYSTEM.name
             }
 
-    suspend fun setTheme(theme: AppTheme) {
-        prefsDataStore.edit { prefs -> prefs[PrefKeys.THEME_KEY] = theme.name }
-    }
-
     // onboarding
     val firstTimeSync
         get() =

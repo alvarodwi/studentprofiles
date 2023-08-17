@@ -165,7 +165,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun setupErrorLayout() {
         with(binding.layoutHome.layoutError) {
             tvTitle.text = getString(R.string.title_list_empty)
-            tvBody.text = getString(R.string.body_list_empty)
+            tvBody.text = getString(R.string.info_list_empty)
         }
     }
 

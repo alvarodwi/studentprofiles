@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="cd_favorite_iv_empty">Empty state icon</string>
+    <string name="info_favorite_empty">You haven\'t selected any favorites yet!</string>
     <string name="title_favorite_empty">Nothing here</string>
-    <string name="body_favorite_empty">You haven\'t selected any favorites yet!</string>
 </resources>

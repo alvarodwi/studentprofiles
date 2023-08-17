@@ -16,7 +16,7 @@ class TestPagingSource<T : Any> : PagingSource<Int, T>() {
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, T>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, T>): Int {
         return 0
     }
 

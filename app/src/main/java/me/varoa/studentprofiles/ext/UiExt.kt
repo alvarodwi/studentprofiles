@@ -3,7 +3,6 @@ package me.varoa.studentprofiles.ext
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -20,14 +19,6 @@ fun Fragment.snackbar(
     duration: Int = Snackbar.LENGTH_SHORT,
 ) {
     createSnackbar(message, duration).show()
-}
-
-fun Fragment.snackbar(
-    message: String,
-    anchorView: View,
-    duration: Int = Snackbar.LENGTH_SHORT,
-) {
-    createSnackbar(message, duration).apply { setAnchorView(anchorView) }.show()
 }
 
 fun Fragment.toast(

@@ -60,7 +60,7 @@ class FavoriteFragment : BaseFragment(layout.fragment_favorite) {
     private fun setupErrorLayout() {
         with(binding) {
             tvTitle.text = getString(R.string.title_favorite_empty)
-            tvBody.text = getString(R.string.body_favorite_empty)
+            tvBody.text = getString(R.string.info_favorite_empty)
         }
     }
 
