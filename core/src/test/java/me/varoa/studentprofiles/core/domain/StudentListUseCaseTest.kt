@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import me.varoa.studentprofiles.core.DummyHelper
+import me.varoa.studentprofiles.core.STUDENT_DIFFER
 import me.varoa.studentprofiles.core.TestDispatcherRule
 import me.varoa.studentprofiles.core.TestPagingSource
 import me.varoa.studentprofiles.core.buildDiffer
@@ -18,7 +19,6 @@ import me.varoa.studentprofiles.core.data.local.query.StudentQuery
 import me.varoa.studentprofiles.core.domain.model.StudentMinified
 import me.varoa.studentprofiles.core.domain.repository.StudentRepository
 import me.varoa.studentprofiles.core.domain.usecase.StudentListUseCase
-import me.varoa.studentprofiles.core.minifiedStudentDiffer
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -63,7 +63,7 @@ class StudentListUseCaseTest {
             val actual = useCase.getStudents(StudentQuery())
             coVerify { useCase.getStudents(allAny()) }
 
-            val differ = buildDiffer(minifiedStudentDiffer, testDispatcherRule.dispatcher)
+            val differ = buildDiffer(STUDENT_DIFFER, testDispatcherRule.dispatcher)
             actual.test {
                 differ.submitData(awaitItem())
                 awaitComplete()

@@ -9,7 +9,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import java.util.concurrent.TimeUnit
 
-val remoteModule =
+val REMOTE_MODULE =
     module {
         val defaultTimeout = 2L
 

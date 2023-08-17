@@ -4,7 +4,7 @@ import me.varoa.studentprofiles.feature.favorite.screen.FavoriteViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val favoriteModule =
+val FAVORITE_MODULE =
     module {
         viewModel { FavoriteViewModel(get()) }
     }
