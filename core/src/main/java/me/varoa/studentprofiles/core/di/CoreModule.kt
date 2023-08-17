@@ -5,7 +5,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.dsl.worker
 import org.koin.dsl.module
 
-val coreModule =
+val CORE_MODULE =
     module {
         worker {
             SyncWorker(appContext = androidContext(), params = get(), useCase = get(), client = get())

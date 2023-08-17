@@ -12,7 +12,7 @@ import me.varoa.studentprofiles.base.BaseFragment
 import me.varoa.studentprofiles.feature.favorite.R
 import me.varoa.studentprofiles.feature.favorite.R.layout
 import me.varoa.studentprofiles.feature.favorite.databinding.FragmentFavoriteBinding
-import me.varoa.studentprofiles.feature.favorite.di.favoriteModule
+import me.varoa.studentprofiles.feature.favorite.di.FAVORITE_MODULE
 import me.varoa.studentprofiles.viewbinding.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
@@ -26,7 +26,7 @@ class FavoriteFragment : BaseFragment(layout.fragment_favorite) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().also {
-            loadKoinModules(favoriteModule)
+            loadKoinModules(FAVORITE_MODULE)
         }
     }
 

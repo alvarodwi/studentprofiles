@@ -7,7 +7,7 @@ import me.varoa.studentprofiles.screen.home.sort.SortSheetViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
-val appModule =
+val APP_MODULE =
     module {
         viewModelOf(::HomeViewModel)
         viewModelOf(::FilterSheetViewModel)

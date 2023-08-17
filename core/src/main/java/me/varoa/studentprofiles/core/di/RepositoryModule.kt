@@ -6,7 +6,7 @@ import me.varoa.studentprofiles.core.domain.repository.FavoriteRepository
 import me.varoa.studentprofiles.core.domain.repository.StudentRepository
 import org.koin.dsl.module
 
-val repositoryModule =
+val REPOSITORY_MODULE =
     module {
         single<StudentRepository> { StudentRepositoryImpl(get()) }
         single<FavoriteRepository> { FavoriteRepositoryImpl(get()) }

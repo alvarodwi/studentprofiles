@@ -9,12 +9,12 @@ import kotlinx.coroutines.flow.map
 import me.varoa.studentprofiles.core.domain.model.AppTheme
 import me.varoa.studentprofiles.core.domain.model.SyncInterval
 
-private val Context.dataStore by preferencesDataStore("prefs")
+private val Context.DATA_STORE by preferencesDataStore("prefs")
 
 class DataStoreManager(
     appContext: Context,
 ) {
-    private val prefsDataStore = appContext.dataStore
+    private val prefsDataStore = appContext.DATA_STORE
 
     // generic
     suspend fun <T : Any> set(

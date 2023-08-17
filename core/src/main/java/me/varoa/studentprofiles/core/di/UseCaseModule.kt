@@ -10,7 +10,7 @@ import me.varoa.studentprofiles.core.domain.usecase.StudentListUseCase
 import me.varoa.studentprofiles.core.domain.usecase.SyncStudentUseCase
 import org.koin.dsl.module
 
-val useCaseModule =
+val USE_CASE_MODULE =
     module {
         single<StudentListUseCase> { StudentListInteractor(get()) }
         single<SyncStudentUseCase> { SyncStudentInteractor(get(), get()) }

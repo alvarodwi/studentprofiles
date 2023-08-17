@@ -8,7 +8,7 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
-val localModule =
+val LOCAL_MODULE =
     module {
         fun provideDatabase(context: Context): AppDatabase =
             Room.databaseBuilder(

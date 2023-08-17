@@ -61,7 +61,7 @@ fun <T : Any> buildDiffer(
     workerDispatcher = dispatcher,
 )
 
-val minifiedStudentDiffer =
+val STUDENT_DIFFER =
     object : ItemCallback<StudentMinified>() {
         override fun areItemsTheSame(
             oldItem: StudentMinified,
