@@ -7,6 +7,17 @@ plugins {
 android {
     namespace = "me.varoa.studentprofiles.core"
 
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                "proguard-rules.pro"
+            )
+            consumerProguardFiles("consumer-rules.pro")
+        }
+    }
+
     defaultConfig {
         testInstrumentationRunner  = "androidx.test.runner.AndroidJUnitRunner"
 

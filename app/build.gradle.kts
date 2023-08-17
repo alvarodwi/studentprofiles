@@ -17,6 +17,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android.txt"),
                 "proguard-rules.pro"
@@ -29,6 +30,10 @@ android {
     }
     buildFeatures.viewBinding = true
     dynamicFeatures.add(":feature:favorite")
+
+    packaging {
+        resources.excludes.add("META-INF/*")
+    }
 }
 
 dependencies {
