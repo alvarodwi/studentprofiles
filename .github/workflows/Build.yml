@@ -3,7 +3,7 @@ name: Build
 # - https://github.com/android/nowinandroid/blob/main/.github/workflows/Build.yaml
 on:
   push:
-    branches: [ "main", "setup_ci" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
