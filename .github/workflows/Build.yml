@@ -1,5 +1,6 @@
 name: Build
-
+# inspired from
+# - https://github.com/android/nowinandroid/blob/main/.github/workflows/Build.yaml
 on:
   push:
     branches: [ "main", "setup_ci" ]
