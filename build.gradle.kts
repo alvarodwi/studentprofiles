@@ -33,9 +33,7 @@ subprojects {
     }
 }
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
-}
+
 
 // ben-manes versions checking
 fun isNonStable(version: String): Boolean {
