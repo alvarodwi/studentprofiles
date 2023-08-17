@@ -28,6 +28,7 @@ android {
             isDebuggable = true
         }
     }
+
     buildFeatures.viewBinding = true
     dynamicFeatures.add(":feature:favorite")
 

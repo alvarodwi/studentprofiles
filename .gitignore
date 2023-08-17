@@ -32,5 +32,5 @@ google-services.json
 # Android Profiling
 *.hprof
 
-# deploy key and stuffs
-deploy
+# keystores and stuffs
+keystore
