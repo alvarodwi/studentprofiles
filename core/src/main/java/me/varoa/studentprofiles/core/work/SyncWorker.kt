@@ -103,7 +103,6 @@ class SyncWorker(
 
             // save json data into database
             setProgress(workDataOf(PARAM_PROGRESS to "Saving data into the database..."))
-            useCase.deleteAllStudent()
             students.forEach { useCase.insertStudent(it) }
             // preparing image folders
             val portraitDir = getDirectory("portrait")

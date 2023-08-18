@@ -12,6 +12,4 @@ interface StudentRepository {
     fun getStudent(id: Int): Flow<Student>
 
     suspend fun insertStudent(vararg student: Student)
-
-    suspend fun deleteAllStudent()
 }

@@ -6,7 +6,5 @@ import me.varoa.studentprofiles.core.domain.model.SyncInterval
 interface SyncStudentUseCase {
     suspend fun insertStudent(vararg student: Student)
 
-    suspend fun deleteAllStudent()
-
     suspend fun getSyncInterval(): SyncInterval
 }

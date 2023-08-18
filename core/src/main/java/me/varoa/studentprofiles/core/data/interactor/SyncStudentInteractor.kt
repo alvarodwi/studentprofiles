@@ -13,7 +13,5 @@ class SyncStudentInteractor(
 ) : SyncStudentUseCase {
     override suspend fun insertStudent(vararg student: Student) = repository.insertStudent(*student)
 
-    override suspend fun deleteAllStudent() = repository.deleteAllStudent()
-
     override suspend fun getSyncInterval(): SyncInterval = SyncInterval.valueOf(prefs.syncInterval.first())
 }

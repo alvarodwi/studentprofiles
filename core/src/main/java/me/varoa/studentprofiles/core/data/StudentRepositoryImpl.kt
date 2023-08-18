@@ -25,6 +25,4 @@ class StudentRepositoryImpl(
     override fun getStudent(id: Int): Flow<Student> = dao.getStudent(id).map(StudentEntity::asModel)
 
     override suspend fun insertStudent(vararg student: Student) = dao.insert(*student.map { it.asEntity() }.toTypedArray())
-
-    override suspend fun deleteAllStudent() = dao.deleteAll()
 }

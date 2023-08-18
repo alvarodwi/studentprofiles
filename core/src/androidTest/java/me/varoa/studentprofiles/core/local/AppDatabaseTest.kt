@@ -19,13 +19,14 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import me.varoa.studentprofiles.core.DummyHelper
 import me.varoa.studentprofiles.core.TestDispatcherRule
 import me.varoa.studentprofiles.core.data.local.AppDatabase
 import me.varoa.studentprofiles.core.data.local.dao.FavoriteDao
 import me.varoa.studentprofiles.core.data.local.dao.StudentDao
-import me.varoa.studentprofiles.core.data.local.entity.StudentEntity
 import me.varoa.studentprofiles.core.data.local.query.StudentQuery
 import me.varoa.studentprofiles.core.domain.model.StudentMinified
+import me.varoa.studentprofiles.core.util.asEntity
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -71,7 +72,7 @@ class AppDatabaseTest {
             val dao: StudentDao = spyk(studentDao)
             val totalItem = Random.nextInt(2, 20)
             for (i in 1..totalItem) {
-                dao.insert(StudentEntity(id = i, name = "Student_$i"))
+                dao.insert(DummyHelper.generateTestStudent(i).asEntity())
             }
             // verify that dao.insert exactly called n times
             verify(exactly = totalItem) { dao.insert(allAny()) }
@@ -98,7 +99,7 @@ class AppDatabaseTest {
             // insert
             val totalItem = Random.nextInt(50, 100)
             for (i in 1..totalItem) {
-                studentDao.insert(StudentEntity(id = i, name = "Student_$i"))
+                studentDao.insert(DummyHelper.generateTestStudent(i).asEntity())
             }
 
             // get student
@@ -127,7 +128,7 @@ class AppDatabaseTest {
             // insert
             val totalItem = Random.nextInt(5, 15)
             for (i in 1..totalItem) {
-                studentDao.insert(StudentEntity(id = i, name = "Student_$i"))
+                studentDao.insert(DummyHelper.generateTestStudent(i).asEntity())
             }
 
             // add to favorite
