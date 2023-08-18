@@ -57,4 +57,7 @@ dependencies {
     testImplementation(libs.bundles.unitTest)
     androidTestImplementation(libs.bundles.uiTest)
     androidTestImplementation(libs.androidx.navigation.testing)
+
+    // leakcanary
+    debugImplementation(libs.leakcanary)
 }
