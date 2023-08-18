@@ -1,6 +1,5 @@
 package me.varoa.studentprofiles.core
 
-import me.varoa.studentprofiles.core.data.local.entity.StudentEntity
 import me.varoa.studentprofiles.core.domain.model.AttackType.Explosive
 import me.varoa.studentprofiles.core.domain.model.DefenseType.Light
 import me.varoa.studentprofiles.core.domain.model.School.GEHENNA
@@ -39,11 +38,5 @@ object DummyHelper {
             imgPath = "",
             squadType = "",
             tacticRole = "",
-        )
-
-    fun generateTestStudentEntity(id: Int) =
-        StudentEntity(
-            id = id,
-            name = "Student_$id",
         )
 }

@@ -3,59 +3,49 @@ package me.varoa.studentprofiles.core.util
 object LocalizationUtil {
     // from https://schale.gg/data/en/localization.min.json
     // hardcoded for my sanity (sorry)
-    fun fetchClubName(name: String): String {
-        return when (name) {
-            "Kohshinjo68" -> "Problem Solver 68"
-            "Justice" -> "Justice Task Force"
-            "CleanNClearing" -> "Cleaning & Clearing"
-            "BookClub" -> "Library Committee"
-            "Countermeasure" -> "Foreclosure Task Force"
-            "Engineer" -> "Engineering Department"
-            "FoodService" -> "School Lunch Club"
-            "Fuuki" -> "Prefect Team"
-            "GourmetClub" -> "Gourmet Research Society"
-            "HoukagoDessert" -> "After-School Sweets Club"
-            "KnightsHospitaller" -> "Remedial Knights"
-            "MatsuriOffice" -> "Festival Operations Department"
-            "Meihuayuan" -> "Plum Blossom Garden"
-            "Onmyobu" -> "Yin-Yang Club"
-            "RemedialClass" -> "Make-Up Work Club"
-            "SPTF" -> "Super Phenomenon Task Force"
-            "Shugyobu" -> "Inner Discipline Club"
-            "Endanbou" -> "Eastern Alchemy Society"
-            "TheSeminar" -> "Seminar"
-            "TrainingClub" -> "Athletics Training Club"
-            "TrinityVigilance" -> "Trinity's Vigilante Crew"
-            "Veritas" -> "Veritas"
-            "NinpoKenkyubu" -> "Ninjutsu Research Club"
-            "GameDev" -> "Game Development Department"
-            "RedwinterSecretary" -> "Red Winter Office"
-            "anzenkyoku" -> "Public Safety Bureau"
-            "SisterHood" -> "The Sisterhood"
-            "Class227" -> "Spec Ops No. 227"
-            "Emergentology" -> "Medical Emergency Club"
-            "RabbitPlatoon" -> "RABBIT Squad"
-            "PandemoniumSociety" -> "Pandemonium Society"
-            "AriusSqud" -> "Arius Squad"
-            "HotSpringsDepartment" -> "Hot Springs Department"
-            "TeaParty" -> "Tea Party"
-            "PublicPeaceBureau" -> "Public Peace Bureau"
-            "BlackTortoisePromenade" -> "Black Tortoise Promenade"
-            "Genryumon" -> "Genryumon"
-            "LaborParty" -> "Labor Party"
-            else -> "None"
-        }
-    }
+    private val clubNames =
+        listOf(
+            "Kohshinjo68" to "Problem Solver 68",
+            "Justice" to "Justice Task Force",
+            "CleanNClearing" to "Cleaning & Clearing",
+            "BookClub" to "Library Committee",
+            "Countermeasure" to "Foreclosure Task Force",
+            "Engineer" to "Engineering Department",
+            "FoodService" to "School Lunch Club",
+            "Fuuki" to "Prefect Team",
+            "GourmetClub" to "Gourmet Research Society",
+            "HoukagoDessert" to "After-School Sweets Club",
+            "KnightsHospitaller" to "Remedial Knights",
+            "MatsuriOffice" to "Festival Operations Department",
+            "Meihuayuan" to "Plum Blossom Garden",
+            "Onmyobu" to "Yin-Yang Club",
+            "RemedialClass" to "Make-Up Work Club",
+            "SPTF" to "Super Phenomenon Task Force",
+            "Shugyobu" to "Inner Discipline Club",
+            "Endanbou" to "Eastern Alchemy Society",
+            "TheSeminar" to "Seminar",
+            "TrainingClub" to "Athletics Training Club",
+            "TrinityVigilance" to "Trinity's Vigilante Crew",
+            "Veritas" to "Veritas",
+            "NinpoKenkyubu" to "Ninjutsu Research Club",
+            "GameDev" to "Game Development Department",
+            "RedwinterSecretary" to "Red Winter Office",
+            "anzenkyoku" to "Public Safety Bureau",
+            "SisterHood" to "The Sisterhood",
+            "Class227" to "Spec Ops No. 227",
+            "Emergentology" to "Medical Emergency Club",
+            "RabbitPlatoon" to "RABBIT Squad",
+            "PandemoniumSociety" to "Pandemonium Society",
+            "AriusSqud" to "Arius Squad",
+            "HotSpringsDepartment" to "Hot Springs Department",
+            "TeaParty" to "Tea Party",
+            "PublicPeaceBureau" to "Public Peace Bureau",
+            "BlackTortoisePromenade" to "Black Tortoise Promenade",
+            "Genryumon" to "Genryumon",
+            "LaborParty" to "Labor Party",
+        )
 
-    fun humanReadableByteCount(bytes: Long) =
-        when {
-            bytes == Long.MIN_VALUE || bytes < 0 -> "N/A"
-            bytes < 1024L -> "$bytes B"
-            bytes <= 0xfffccccccccccccL shr 40 -> "%.1f KiB".format(bytes.toDouble() / (0x1 shl 10))
-            bytes <= 0xfffccccccccccccL shr 30 -> "%.1f MiB".format(bytes.toDouble() / (0x1 shl 20))
-            bytes <= 0xfffccccccccccccL shr 20 -> "%.1f GiB".format(bytes.toDouble() / (0x1 shl 30))
-            bytes <= 0xfffccccccccccccL shr 10 -> "%.1f TiB".format(bytes.toDouble() / (0x1 shl 40))
-            bytes <= 0xfffccccccccccccL -> "%.1f PiB".format((bytes shr 10).toDouble() / (0x1 shl 40))
-            else -> "%.1f EiB".format((bytes shr 20).toDouble() / (0x1 shl 40))
-        }
+    fun fetchClubCode(name: String): String = clubNames.find { it.second == name }?.first ?: "EmptyClub"
+
+    fun fetchClubName(code: String): String = clubNames.find { it.first == code }?.second ?: "None"
 }

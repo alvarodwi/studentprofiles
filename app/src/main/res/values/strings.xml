@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">StudentProfiles</string>
-    <string name="info_list_empty">There are no data to show here, please revise your search or filter query</string>
     <string name="btn_sync">Start Sync</string>
     <string name="cd_detail_iv_background">Academy background image</string>
     <string name="cd_detail_iv_portrait">Student\'s portrait image</string>
@@ -10,9 +9,11 @@
     <string name="cd_sync_iv_hero">Application icon</string>
     <string name="hint_search_bar">Search students</string>
     <string name="hint_search_view">Search by name</string>
+    <string name="info_list_empty">There are no data to show here, please revise your search or filter query</string>
     <string name="info_list_filtered">Showing filtered students</string>
     <string name="info_list_unfiltered">Showing all students</string>
     <string name="info_sync_failed">Sync failed : %s</string>
+    <string name="info_sync_starting">Starting sync...</string>
     <string name="lbl_age">Age</string>
     <string name="lbl_basic_info">Basic Info</string>
     <string name="lbl_birthday">Birthday</string>

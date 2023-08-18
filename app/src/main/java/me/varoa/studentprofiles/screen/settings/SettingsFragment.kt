@@ -89,6 +89,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
                         titleRes = R.string.prefs_run_sync
                         summary = getString(R.string.prefs_run_sync_summary)
                         onClick {
+                            snackbar(getString(R.string.info_sync_starting))
                             runSync()
                         }
                     }

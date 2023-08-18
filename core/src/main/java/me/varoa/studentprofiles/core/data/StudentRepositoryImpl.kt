@@ -11,6 +11,7 @@ import me.varoa.studentprofiles.core.data.local.query.StudentQuery
 import me.varoa.studentprofiles.core.domain.model.Student
 import me.varoa.studentprofiles.core.domain.model.StudentMinified
 import me.varoa.studentprofiles.core.domain.repository.StudentRepository
+import me.varoa.studentprofiles.core.util.asEntity
 import me.varoa.studentprofiles.core.util.asModel
 
 class StudentRepositoryImpl(
@@ -23,7 +24,7 @@ class StudentRepositoryImpl(
 
     override fun getStudent(id: Int): Flow<Student> = dao.getStudent(id).map(StudentEntity::asModel)
 
-    override suspend fun insertStudent(vararg student: StudentEntity) = dao.insert(*student)
+    override suspend fun insertStudent(vararg student: Student) = dao.insert(*student.map { it.asEntity() }.toTypedArray())
 
     override suspend fun deleteAllStudent() = dao.deleteAll()
 }
