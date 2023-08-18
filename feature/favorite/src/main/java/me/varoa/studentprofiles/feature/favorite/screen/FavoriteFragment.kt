@@ -7,7 +7,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import logcat.logcat
 import me.varoa.studentprofiles.base.BaseFragment
 import me.varoa.studentprofiles.feature.favorite.R
 import me.varoa.studentprofiles.feature.favorite.R.layout
@@ -21,7 +20,7 @@ class FavoriteFragment : BaseFragment(layout.fragment_favorite) {
     override val binding by viewBinding<FragmentFavoriteBinding>()
     override val viewModel by viewModel<FavoriteViewModel>()
 
-    private lateinit var adapter: FavoriteAdapter
+    private var adapter: FavoriteAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,18 +40,19 @@ class FavoriteFragment : BaseFragment(layout.fragment_favorite) {
                 navigateTo(FavoriteFragmentDirections.actionFavoriteToDetail(it.id))
             }
         viewLifecycleOwner.lifecycleScope.launch {
-            adapter.loadStateFlow.collectLatest { loadState ->
-                if (loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
-                    toggleErrorLayout(adapter.itemCount < 1)
+            adapter?.let {
+                it.loadStateFlow.collectLatest { loadState ->
+                    if (loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
+                        toggleErrorLayout(it.itemCount < 1)
+                    }
                 }
             }
         }
         binding.recyclerView.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.students.collectLatest {
-                logcat { "Students data -> $it" }
-                adapter.submitData(it)
+            adapter?.let {
+                viewModel.students.collectLatest(it::submitData)
             }
         }
     }
@@ -69,5 +69,10 @@ class FavoriteFragment : BaseFragment(layout.fragment_favorite) {
             recyclerView.isVisible = !isShown
             layoutError.isVisible = isShown
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter = null
     }
 }

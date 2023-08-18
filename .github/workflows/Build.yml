@@ -76,7 +76,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
-      
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
@@ -114,7 +114,9 @@ jobs:
           disable-animations: true
           disk-size: 6000M
           heap-size: 600M
-          script: ./gradlew connectedDebugAndroidTest --daemon
+          script: |
+            adb uninstall "me.varoa.studentprofiles.core.test"
+            ./gradlew connectedDebugAndroidTest --daemon
 
       - name: Upload test reports
         if: always()

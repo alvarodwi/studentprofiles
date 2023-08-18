@@ -21,7 +21,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override val binding by viewBinding<FragmentHomeBinding>()
     override val viewModel by koinNavGraphViewModel<HomeViewModel>(R.id.nav_home)
 
-    private lateinit var adapter: HomeAdapter
+    private var adapter: HomeAdapter? = null
     private lateinit var searchView: SearchView
 
     override fun bindView() {
@@ -53,9 +53,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             }
         view.adapter = adapter
         viewLifecycleOwner.lifecycleScope.launch {
-            adapter.loadStateFlow.collectLatest { loadState ->
-                if (loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
-                    toggleErrorLayout(adapter.itemCount < 1)
+            adapter?.let {
+                it.loadStateFlow.collectLatest { loadState ->
+                    if (loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
+                        toggleErrorLayout(it.itemCount < 1)
+                    }
                 }
             }
         }
@@ -138,7 +140,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun observeStudents() =
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.students.collectLatest(adapter::submitData)
+            adapter?.let {
+                viewModel.students.collectLatest(it::submitData)
+            }
         }
 
     private fun observeQuery() =
@@ -175,5 +179,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             layoutList.isVisible = !isShown
             layoutError.root.isVisible = isShown
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter = null
     }
 }
