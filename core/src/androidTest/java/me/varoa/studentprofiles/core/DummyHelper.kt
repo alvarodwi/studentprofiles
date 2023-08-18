@@ -5,7 +5,6 @@ import me.varoa.studentprofiles.core.domain.model.DefenseType.Light
 import me.varoa.studentprofiles.core.domain.model.School.GEHENNA
 import me.varoa.studentprofiles.core.domain.model.SquadType.Striker
 import me.varoa.studentprofiles.core.domain.model.Student
-import me.varoa.studentprofiles.core.domain.model.StudentMinified
 import me.varoa.studentprofiles.core.domain.model.StudentPosition.Front
 import me.varoa.studentprofiles.core.domain.model.StudentProfile
 import me.varoa.studentprofiles.core.domain.model.TacticRole.Dealer
@@ -29,14 +28,5 @@ object DummyHelper {
             school = GEHENNA,
             profile = StudentProfile("", "", "", "", "", "", "", "", "", "", "", "", "", ""),
             isFavorite = false,
-        )
-
-    fun generateTestStudentMinified(id: Int) =
-        StudentMinified(
-            id = id,
-            name = "Student_$id",
-            imgPath = "",
-            squadType = "",
-            tacticRole = "",
         )
 }

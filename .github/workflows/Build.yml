@@ -58,11 +58,11 @@ jobs:
 
   androidTest:
     needs: build
-    runs-on: macOS-latest # enables hardware acceleration in the virtual machine
+    runs-on: macos-latest # enables hardware acceleration in the virtual machine
     timeout-minutes: 55
     strategy:
       matrix:
-        api-level: [ 30 ]
+        api-level: [ 29 ]
 
     steps:
       - name: Checkout
@@ -76,12 +76,31 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
+      
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      - name: Setting up AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: Create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
 
       - name: Build AndroidTest apps
         run: ./gradlew packageDebug packageDebugAndroidTest --daemon
@@ -90,7 +109,8 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          arch: x86_64
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           disk-size: 6000M
           heap-size: 600M

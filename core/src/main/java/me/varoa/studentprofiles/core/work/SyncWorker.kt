@@ -17,12 +17,10 @@ import me.varoa.studentprofiles.core.data.remote.json.StudentJson
 import me.varoa.studentprofiles.core.domain.model.SyncInterval
 import me.varoa.studentprofiles.core.domain.usecase.SyncStudentUseCase
 import me.varoa.studentprofiles.core.util.ImageUtil
-import me.varoa.studentprofiles.core.util.LocalizationUtil
-import me.varoa.studentprofiles.core.util.asEntity
+import me.varoa.studentprofiles.core.util.asModel
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
-import okhttp3.internal.headersContentLength
 import okio.buffer
 import okio.sink
 import java.io.File
@@ -100,15 +98,12 @@ class SyncWorker(
                 throw e
             }
             val jsonData = checkNotNull(response.body?.string()) { "JsonData is null" }
-            val students = json.decodeFromString<List<StudentJson>>(jsonData)
+            val students = json.decodeFromString<List<StudentJson>>(jsonData).map { it.asModel() }
             val totalData = students.size
 
             // save json data into database
             setProgress(workDataOf(PARAM_PROGRESS to "Saving data into the database..."))
-            useCase.deleteAllStudent()
-            students.map { it.asEntity() }.forEach { entity ->
-                useCase.insertStudent(entity)
-            }
+            students.forEach { useCase.insertStudent(it) }
             // preparing image folders
             val portraitDir = getDirectory("portrait")
             val collectionDir = getDirectory("collection")
@@ -118,7 +113,7 @@ class SyncWorker(
             students.forEachIndexed { index, student ->
                 setProgress(workDataOf(PARAM_PROGRESS to "Downloading student's image... (${index + 1}/$totalData)"))
                 // download portraitImage
-                with(student.devName) {
+                with(student.profile.devName) {
                     val file = File(portraitDir, "portrait_${student.id}.webp")
                     if (!file.exists()) {
                         val fileRequest = buildRequest(ImageUtil.generatePortraitImageUrl(this))
@@ -138,7 +133,7 @@ class SyncWorker(
                     }
                 }
                 // download weaponImage
-                with(student.weaponImgPath) {
+                with(student.profile.weaponImgPath) {
                     val file = File(weaponDir, "weapon_${student.id}.png")
                     if (!file.exists()) {
                         val fileRequest = buildRequest(ImageUtil.generateWeaponImageUrl(this))
@@ -150,7 +145,7 @@ class SyncWorker(
             }
             // download bgImgPath
             setProgress(workDataOf(PARAM_PROGRESS to "Downloading student's background image..."))
-            students.map { it.bgImgPath }.distinct().forEach { bgPath ->
+            students.map { it.profile.bgImgPath }.distinct().forEach { bgPath ->
                 val file = File(bgDir, "$bgPath.jpg")
                 if (!file.exists()) {
                     val fileRequest = buildRequest(ImageUtil.generateBackgroundImageUrl(bgPath))
@@ -196,7 +191,6 @@ class SyncWorker(
                     sink.write(response.body?.byteString() ?: throw IOException("Failed to write file from response : $response"))
                     sink.close()
                 }
-                logcat { "Download finished with size ${LocalizationUtil.humanReadableByteCount(response.headersContentLength())}" }
             } else {
                 logcat { "Error ${response.code} : ${response.message}" }
             }

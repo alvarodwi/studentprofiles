@@ -19,9 +19,6 @@ interface StudentDao {
     @Query("select * from students where id = :id")
     fun getStudent(id: Int): Flow<StudentEntity>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(vararg students: StudentEntity)
-
-    @Query("delete from students")
-    fun deleteAll()
 }
