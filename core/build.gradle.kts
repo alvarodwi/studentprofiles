@@ -2,6 +2,7 @@ plugins {
     id("studentprofiles.android.library")
     id("studentprofiles.android.koin")
     alias(libs.plugins.kotlin.serialization)
+    id(libs.plugins.gradle.secrets.get().pluginId)
 }
 
 android {
@@ -10,16 +11,12 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android.txt"),
-                "proguard-rules.pro"
-            )
             consumerProguardFiles("consumer-rules.pro")
         }
     }
 
     defaultConfig {
-        testInstrumentationRunner  = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         ksp {
             arg("room.schemaLocation", "$projectDir/schemas")
@@ -32,6 +29,10 @@ android {
 
     packaging {
         resources.excludes.add("META-INF/*")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 
@@ -63,4 +64,13 @@ dependencies {
     // testing database
     androidTestImplementation(libs.turbine)
     testImplementation(libs.room.testing)
+
+    // security
+    implementation(libs.sqlcipher)
+    implementation(libs.androidx.sqlite)
+}
+
+secrets {
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "secrets.defaults.properties"
 }

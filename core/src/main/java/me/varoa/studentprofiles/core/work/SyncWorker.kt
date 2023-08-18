@@ -37,7 +37,7 @@ class SyncWorker(
     private val client: OkHttpClient,
 ) : CoroutineWorker(appContext, params) {
     companion object {
-        const val TAG = "sync_worker"
+        private const val TAG = "sync_worker"
         const val PARAM_PROGRESS = "progress"
         const val KEY_MESSAGE = "message"
 

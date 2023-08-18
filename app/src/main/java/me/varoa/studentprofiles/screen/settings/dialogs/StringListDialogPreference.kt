@@ -13,7 +13,7 @@ class StringListDialogPreference
         context: Context,
         attrs: AttributeSet? = null,
     ) : DialogPreference(context, attrs) {
-        var entries = emptyList<String>()
+        private var entries = emptyList<String>()
         var entryValues = emptyList<String>()
         private var defValue: String = ""
         var entriesRes
