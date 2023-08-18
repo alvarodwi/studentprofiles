@@ -62,7 +62,7 @@ jobs:
     timeout-minutes: 55
     strategy:
       matrix:
-        api-level: [ 30 ]
+        api-level: [ 29 ]
 
     steps:
       - name: Checkout
@@ -76,15 +76,12 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
+      
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build AndroidTest apps
-        run: ./gradlew packageDebug packageDebugAndroidTest --daemon
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: Setting up AVD cache
         uses: actions/cache@v3
@@ -104,6 +101,9 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
+
+      - name: Build AndroidTest apps
+        run: ./gradlew packageDebug packageDebugAndroidTest --daemon
 
       - name: Run instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2
