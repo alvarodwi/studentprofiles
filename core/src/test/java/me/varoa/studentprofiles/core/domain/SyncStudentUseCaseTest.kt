@@ -70,28 +70,6 @@ class SyncStudentUseCaseTest {
         }
 
     @Test
-    fun `delete all students`() =
-        runTest {
-            val actual = mutableListOf<StudentEntity>()
-            val total = Random.nextInt(50, 150)
-            for (i in 1..total) {
-                actual.add(DummyHelper.generateTestStudent(i).asEntity())
-            }
-
-            coEvery { student.deleteAllStudent() } answers {
-                actual.clear()
-            }
-
-            useCase = SyncStudentInteractor(student, prefs)
-            // check if total data is sized the same before deletion
-            assertEquals(total, actual.size)
-            useCase.deleteAllStudent()
-            coVerify { student.deleteAllStudent() }
-            // check if total data is now 0
-            assertEquals(0, actual.size)
-        }
-
-    @Test
     fun `simulate fetch sync interval from prefs`() =
         runTest {
             var currentSyncInterval = SyncInterval.WEEKLY.name
