@@ -22,7 +22,7 @@ DB_PASSPHRASE = "<PASSPHRASE FOR DATABASE ENCRYPTION>"
 
 ## Demo
 <div align="center">
-<img src="docs/images/3.png" width="25%" />
-<img src="docs/images/1.png" width="25%" />
-<img src="docs/images/2.png" width="25%" />
+<img src="docs/images/1.png" width="30%" />
+<img src="docs/images/3.png" width="30%" />
+<img src="docs/images/2.png" width="30%" />
 </div>
