@@ -17,8 +17,8 @@ object DummyHelper {
         Student(
             id = id,
             name = "Student_$id",
+            releasedInGlobal = true,
             // the rest is not that important in test...
-            releasedInGlobal = false,
             imgPath = "",
             squadType = Striker,
             tacticRole = Dealer,

@@ -118,7 +118,6 @@ class AppDatabaseTest {
             assertNotNull(studentDiffer.snapshot())
             // assert paging data size is now total item
             assertEquals(totalItem, studentDiffer.snapshot().size)
-
             job.cancel()
         }
 
