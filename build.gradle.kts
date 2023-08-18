@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.gradle.secrets) apply false
     alias(libs.plugins.androidx.navigation.safeArgs) apply false
     id("com.android.dynamic-feature") version "8.0.2" apply false
 }
@@ -70,3 +71,4 @@ versionCatalogUpdate {
         keepUnusedPlugins.set(true)
     }
 }
+
