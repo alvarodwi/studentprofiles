@@ -13,6 +13,10 @@ android {
             isMinifyEnabled = true
             consumerProguardFiles("consumer-rules.pro")
         }
+        debug {
+            isMinifyEnabled = true
+            consumerProguardFiles("consumer-rules.pro")
+        }
     }
 
     defaultConfig {
