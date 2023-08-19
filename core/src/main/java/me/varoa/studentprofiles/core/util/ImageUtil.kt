@@ -10,4 +10,6 @@ object ImageUtil {
     fun generateBackgroundImageUrl(bgImgPath: String) = "${IMAGE_URL}background/$bgImgPath.jpg"
 
     fun generateWeaponImageUrl(weaponImgPath: String) = "${IMAGE_URL}weapon/$weaponImgPath.png"
+
+    fun generateSchoolIconUrl(schoolName: String) = "${IMAGE_URL}schoolicon/School_Icon_${schoolName.uppercase()}_W.png"
 }

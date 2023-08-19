@@ -107,12 +107,14 @@ class BasicDetailFragment : BaseFragment(R.layout.fragment_basic_detail) {
             chipPosition.text = data.position.name.uppercase()
             chipPosition.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD_ITALIC)
             // school
-            ivSchool.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    resources.getIdentifier("school_${data.school.key.lowercase()}", "drawable", requireContext().packageName),
-                ),
-            )
+            ivSchool.apply {
+                val imgData =
+                    ImageRequest.Builder(requireContext())
+                        .data(data.getImage(requireContext(), StudentImageType.SCHOOLICON))
+                        .target(this)
+                        .allowHardware(true).build()
+                imageLoader.enqueue(imgData)
+            }
         }
     }
 }

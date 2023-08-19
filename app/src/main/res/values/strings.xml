@@ -13,7 +13,7 @@
     <string name="info_list_filtered">Showing filtered students</string>
     <string name="info_list_unfiltered">Showing all students</string>
     <string name="info_sync_failed">Sync failed : %s</string>
-    <string name="info_sync_starting">Starting sync...</string>
+    <string name="info_sync_starting">Starting sync…</string>
     <string name="lbl_age">Age</string>
     <string name="lbl_basic_info">Basic Info</string>
     <string name="lbl_birthday">Birthday</string>
