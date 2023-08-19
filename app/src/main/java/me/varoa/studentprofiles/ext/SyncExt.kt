@@ -5,6 +5,7 @@ import me.varoa.studentprofiles.core.domain.model.Student
 import me.varoa.studentprofiles.core.domain.model.StudentImageType
 import me.varoa.studentprofiles.core.domain.model.StudentImageType.BG
 import me.varoa.studentprofiles.core.domain.model.StudentImageType.PORTRAIT
+import me.varoa.studentprofiles.core.domain.model.StudentImageType.SCHOOLICON
 import me.varoa.studentprofiles.core.domain.model.StudentImageType.WEAPON
 import me.varoa.studentprofiles.core.domain.model.StudentMinified
 import java.io.File
@@ -22,6 +23,7 @@ fun Student.getImage(
         BG -> File(getImageDirectory(context, "bg"), "${this.profile.bgImgPath}.jpg")
         WEAPON -> File(getImageDirectory(context, "weapon"), "weapon_${this.id}.png")
         PORTRAIT -> File(getImageDirectory(context, "portrait"), "portrait_${this.id}.webp")
+        SCHOOLICON -> File(getImageDirectory(context, "schoolIcon"), "${this.school.key}.png")
         else -> File(getImageDirectory(context, "collection"), "collection_${this.id}.webp")
     }
 }

@@ -84,7 +84,7 @@ class SyncWorker(
     override suspend fun doWork(): Result {
         try {
             // download json file
-            setProgress(workDataOf(PARAM_PROGRESS to "Fetching students data..."))
+            setProgress(workDataOf(PARAM_PROGRESS to "Fetching students data…"))
             val request =
                 Request.Builder()
                     .url(ApiConfig.STUDENT_JSON_URL)
@@ -102,16 +102,17 @@ class SyncWorker(
             val totalData = students.size
 
             // save json data into database
-            setProgress(workDataOf(PARAM_PROGRESS to "Saving data into the database..."))
+            setProgress(workDataOf(PARAM_PROGRESS to "Saving data into the database…"))
             students.forEach { useCase.insertStudent(it) }
             // preparing image folders
             val portraitDir = getDirectory("portrait")
             val collectionDir = getDirectory("collection")
             val bgDir = getDirectory("bg")
             val weaponDir = getDirectory("weapon")
+            val schoolIconDir = getDirectory("schoolIcon")
             // try to download students images
             students.forEachIndexed { index, student ->
-                setProgress(workDataOf(PARAM_PROGRESS to "Downloading student's image... (${index + 1}/$totalData)"))
+                setProgress(workDataOf(PARAM_PROGRESS to "Downloading student's image… (${index + 1}/$totalData)"))
                 // download portraitImage
                 with(student.profile.devName) {
                     val file = File(portraitDir, "portrait_${student.id}.webp")
@@ -119,7 +120,7 @@ class SyncWorker(
                         val fileRequest = buildRequest(ImageUtil.generatePortraitImageUrl(this))
                         downloadFile(file, fileRequest, client)
                     } else {
-                        logcat { "Image ${file.name} already exist! Skipping..." }
+                        logcat { "Image ${file.name} already exist! Skipping…" }
                     }
                 }
                 // download collectionImage
@@ -129,7 +130,7 @@ class SyncWorker(
                         val fileRequest = buildRequest(ImageUtil.generateCollectionImageUrl(this))
                         downloadFile(file, fileRequest, client)
                     } else {
-                        logcat { "Image ${file.name} already exist! Skipping..." }
+                        logcat { "Image ${file.name} already exist! Skipping…" }
                     }
                 }
                 // download weaponImage
@@ -139,23 +140,34 @@ class SyncWorker(
                         val fileRequest = buildRequest(ImageUtil.generateWeaponImageUrl(this))
                         downloadFile(file, fileRequest, client)
                     } else {
-                        logcat { "Image ${file.name} already exist! Skipping..." }
+                        logcat { "Image ${file.name} already exist! Skipping…" }
                     }
                 }
             }
+            // download schoolIcon
+            setProgress(workDataOf(PARAM_PROGRESS to "Downloading student's school icon…"))
+            students.map { it.school.key }.distinct().forEach { schoolName ->
+                val file = File(schoolIconDir, "$schoolName.png")
+                if (!file.exists()) {
+                    val fileRequest = buildRequest(ImageUtil.generateSchoolIconUrl(schoolName))
+                    downloadFile(file, fileRequest, client)
+                } else {
+                    logcat { "Image ${file.name} already exist! Skipping…" }
+                }
+            }
             // download bgImgPath
-            setProgress(workDataOf(PARAM_PROGRESS to "Downloading student's background image..."))
+            setProgress(workDataOf(PARAM_PROGRESS to "Downloading student's background image…"))
             students.map { it.profile.bgImgPath }.distinct().forEach { bgPath ->
                 val file = File(bgDir, "$bgPath.jpg")
                 if (!file.exists()) {
                     val fileRequest = buildRequest(ImageUtil.generateBackgroundImageUrl(bgPath))
                     downloadFile(file, fileRequest, client)
                 } else {
-                    logcat { "Image ${file.name} already exist! Skipping..." }
+                    logcat { "Image ${file.name} already exist! Skipping…" }
                 }
             }
 
-            setProgress(workDataOf(PARAM_PROGRESS to "Finalizing sync..."))
+            setProgress(workDataOf(PARAM_PROGRESS to "Finalizing sync…"))
             delay(1000L)
             scheduleNextWork(applicationContext, useCase.getSyncInterval())
             return Result.success(workDataOf(KEY_MESSAGE to "Synced $totalData students data"))

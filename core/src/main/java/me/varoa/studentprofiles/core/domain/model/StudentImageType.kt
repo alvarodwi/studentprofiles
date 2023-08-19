@@ -5,4 +5,5 @@ enum class StudentImageType {
     PORTRAIT,
     BG,
     WEAPON,
+    SCHOOLICON,
 }

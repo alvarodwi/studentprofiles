@@ -59,8 +59,7 @@
                 android:contentDescription="@string/cd_detail_iv_school"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="?colorOnSurface"
-                tools:src="@drawable/school_gehenna" />
+                app:tint="?colorOnSurface" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_squad_type"
